@@ -1,6 +1,10 @@
 "use strict"
 
+let stateOutput = document.getElementById("right-half");
+
 let roomNames = ["Salon", "Sypialnia", "Kuchnia", "Łazienka", "Pozostałe"];
+let roomIDs = ["living-room", "bedroom", "kitchen", "bathroom", "house"];
+let outNames = ["Light", "Temp", "Blind", "Outlet", "Tv", "Sound", "Alarm", "Garage", "Clean"];
 
 // STARTING PRESETS ARRAY
 let presets = [
@@ -58,6 +62,68 @@ let presets = [
     },
 ]
 
+// CREATE OUTPUT STATES
+function createOutput (out) {
+    const room = document.createElement("div");
+    room.classList.add(`room`);
+    room.setAttribute("id", roomIDs[out]);
+    const name = document.createElement("div");
+    name.classList.add(`room-name`)
+    name.innerHTML = roomNames[out];
+    room.append(name);
+    const container = document.createElement("div");
+    container.classList.add(`output-container`);
+    let temp = out.toString();
+
+    if(out < 4)
+    {
+        for(let i = 0; i < 6; i++)
+        {
+        const output = document.createElement("div");
+        output.classList.add("output");
+        const outName = document.createElement("div");
+        outName.classList.add(`output-name`);
+        outName.innerHTML = outNames[i];
+        output.append(outName);
+        const outValue = document.createElement("div");
+        outValue.classList.add(`output-value`);
+        outValue.setAttribute("id", temp + i);
+        outValue.innerHTML = 0;
+        output.append(outValue);
+        container.append(output);
+        }
+    }
+    else if(out == 4)
+    {
+        for(let i = 0; i < 3; i++)
+        {
+        container.setAttribute("id", "rest")
+        const output = document.createElement("div");
+        output.classList.add("output");
+        const outName = document.createElement("div");
+        outName.classList.add(`output-name`);
+        outName.innerHTML = outNames[i + 6];
+        output.append(outName);
+        const outValue = document.createElement("div");
+        outValue.classList.add(`output-value`);
+        outValue.setAttribute("id", temp + i);
+        outValue.innerHTML = 0;
+        output.append(outValue);
+        container.append(output);
+        }
+    }
+
+    if(out > 1 && out < 4){
+        container.removeChild(container.lastElementChild);
+    }
+    room.append(container);
+    stateOutput.append(room)
+}
+
+for(let i = 0; i < 5; i++){
+    createOutput(i);
+}
+
 // GET ALL STATES
 let sa0 = document.getElementById("00");
 let sa1 = document.getElementById("01");
@@ -90,6 +156,7 @@ let po1 = document.getElementById("41");
 let po2 = document.getElementById("42");
 
 let states = [[sa0,sa1,sa2,sa3,sa4,sa5],[sy0,sy1,sy2,sy3,sy4,sy5],[ku0,ku1,ku2,ku3,ku4],[la0,la1,la2,la3,la4],[po0,po1,po2]];
+
 
 // DISPLAY PRESETS ON SMART PANEL
 function addPresetToScreen (obj) {
@@ -126,4 +193,13 @@ function writeState (element) {
         }
     }
 }
+
+
+
+
+
+
+
+
+
 

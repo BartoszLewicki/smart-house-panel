@@ -11,9 +11,7 @@ for(let i = 0, length = presets.length; i < length; i ++)
 {
     addPresetToScreen(presets[i]);
 }
-
 const preset = document.querySelectorAll(".preset");
-
 
 for(let element = 0; element < preset.length; element++)
 {
@@ -23,18 +21,21 @@ for(let element = 0; element < preset.length; element++)
 }
 
 
-
-
-
-
-
-
-
 addPreset.addEventListener("click",() => {
 
     controls.style.justifyContent = "space-around";
 
-    for(let i = 0; i < 5; i++)
+    
+    
+} )
+
+
+
+
+
+
+/*
+for(let i = 0; i < 5; i++)
     {
         if(i == 4)
         {
@@ -113,9 +114,4 @@ addPreset.addEventListener("click",() => {
     <div class="output-name" id="output-name3"></div>
     <div class="output-value" id="output-value42"></div>
     </div>`;
-    
-} )
-
-
-
-
+    */
