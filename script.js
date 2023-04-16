@@ -117,7 +117,7 @@ start()
 for(let i = 0; i < 5; i++)
     {
         if(i == 4)
-        {
+        {s
         roomArray[i] =  
         `<div class="container-bottom" id="container${i}"> 
         <div class="addPresetRoom-name">${roomNames[i]}</div>
