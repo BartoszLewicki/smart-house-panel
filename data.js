@@ -338,12 +338,18 @@ function menuButtons (number){
         nav.innerHTML = ` <button id="previous">Wstecz</button>
         <button id="end">Zakończ</button>`
         const previous = document.getElementById("previous")
-        const next = document.getElementById("next")
+        const end = document.getElementById("end")
         previous.addEventListener("click", () => 
         {   
             controls.innerHTML = ""
             preset1Site();
             menuButtons(0);
+        });
+        end.addEventListener("click", () => 
+        {   
+            presets.push({name:"new"})
+            controls.innerHTML = ""
+            start();
         });
     }
  
