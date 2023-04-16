@@ -1,10 +1,17 @@
 "use strict"
 
-let stateOutput = document.getElementById("right-half");
+let checkMain = 0;
 
-let roomNames = ["Salon", "Sypialnia", "Kuchnia", "Łazienka", "Pozostałe"];
-let roomIDs = ["living-room", "bedroom", "kitchen", "bathroom", "house"];
-let outNames = ["Light", "Temp", "Blind", "Outlet", "Tv", "Sound", "Alarm", "Garage", "Clean"];
+const stateOutput = document.getElementById("right-half");
+const screen = document.querySelector("#screen");
+const controls = document.querySelector("#controls");
+const nav = document.querySelector("nav");
+
+
+
+const roomNames = ["Salon", "Sypialnia", "Kuchnia", "Łazienka", "Pozostałe"];
+const roomIDs = ["living-room", "bedroom", "kitchen", "bathroom", "house"];
+const outNames = ["Light", "Temp", "Blind", "Outlet", "Tv", "Sound", "Alarm", "Garage", "Clean"];
 
 // STARTING PRESETS ARRAY
 let presets = [
@@ -60,6 +67,7 @@ let presets = [
     <p class="preset-text">Relaks</p>`,
     states: [[1,21,1,1,0,1],[0,20,1,0,0,0],[0,20,1,0,1],[0,21,1,0,0],[0,0,0]]
     },
+    
 ]
 
 // CREATE OUTPUT STATES
@@ -159,15 +167,19 @@ let states = [[sa0,sa1,sa2,sa3,sa4,sa5],[sy0,sy1,sy2,sy3,sy4,sy5],[ku0,ku1,ku2,k
 
 
 // DISPLAY PRESETS ON SMART PANEL
-function addPresetToScreen (obj) {
+function addPresetToScreen (obj, i) {
+    if(presets[0] != null){
     const element = document.createElement("div");
     element.classList.add("preset");
+    element.setAttribute("id", i);
     element.innerHTML = obj.code;
     controls.append(element);
+    }
 }
 
 // CHANGE STATES ACCODRING TO SELECTED PRESET
 function writeState (element) {
+    if(presets[0] != null){
     for(let i = 0; i < 5; i++)
     {       
         if(i < 2)
@@ -193,13 +205,150 @@ function writeState (element) {
         }
     }
 }
+}
+
+function preset1Site (){
+    controls.style.flexDirection ="column";
+    controls.style.flexWrap = "nowrap";
+    controls.style.alignItems = "center";
+    controls.style.justifyContent = "space-between"
+    
+
+    const nameContainer = document.createElement("div");
+    nameContainer.classList.add("new-name");
+    const name = document.createElement("p");
+    name.classList.add("preset-name");
+    name.innerHTML = "Nazwa Presetu";
+    const input = document.createElement("input");
+    input.type = "text";
+    input.classList.add("name-input");
+    nameContainer.append(name,input);
+
+    const svgContainer = document.createElement("div");
+    svgContainer.classList.add("svg-container");
+
+    controls.append(nameContainer,svgContainer);
+}
+
+function preset2Site (){
+
+    for(let i = 0; i < 5; i++){
+        if(i == 4)
+        {
+            const container = document.createElement("div");
+            container.classList.add("addPresetContainer-bottom");
+            container.setAttribute("id", "preset-container"+i);
+            const roomName = document.createElement("div");
+            roomName.classList.add("addPresetRoom-name");
+            roomName.innerHTML = roomNames[i];
+            const body = document.createElement("div");
+            body.classList.add("containerBottomBody");
+            body.setAttribute("id", "containerBody"+i);
+            for(let j = 0; j < 3; j++)
+            {
+                const element = document.createElement("div");
+                element.classList.add("output");
+                const name = document.createElement("div");
+                name.classList.add("output-name")
+                const value = document.createElement("div");
+                value.classList.add("output-value")
+                element.append(name,value);
+                body.append(element) 
+            }
+
+            container.append(roomName,body);
+            controls.append(container)
+        }
+        else
+        {
+            const container = document.createElement("div");
+            container.classList.add("addPreset-container");
+            container.setAttribute("id", "preset-container"+i);
+            const roomName = document.createElement("div");
+            roomName.classList.add("addPresetRoom-name");
+            roomName.innerHTML = roomNames[i];
+            const body = document.createElement("div");
+            body.classList.add("containerBody");
+            body.setAttribute("id", "containerBody"+i);
+            for(let j = 0; j < 6; j++)
+            {
+                const element = document.createElement("div");
+                element.classList.add("output");
+                const name = document.createElement("div");
+                name.classList.add("output-name")
+                const value = document.createElement("div");
+                value.classList.add("output-value")
+                element.append(name,value);
+                body.append(element)
+            }
+            if(i > 1 && i < 4)
+            {
+                body.removeChild(body.lastElementChild);
+            }
+            container.append(roomName,body);
+            controls.append(container)
+        }
+    }
+}
+
+function controlsStarter(){
+    controls.style.flexWrap = "wrap";
+    controls.style.flexDirection ="row";
+    controls.style.justifyContent ="space-around"
+}
 
 
 
 
+// BUTTON FUNCTIONS
+function menuButtons (number){
+    if(number == 0 || number == 1){
+        nav.innerHTML = ` <button id="previous">Wstecz</button>
+        <button id="next">Dalej</button>`
+        const previous = document.getElementById("previous")
+        const next = document.getElementById("next")
+        previous.addEventListener("click", () => 
+        {   
+            controlsStarter()
+            controls.innerHTML = ""
+        start();
+        });
+        next.addEventListener("click", () => {
+            controls.innerHTML = ""
+            if(number == 0){
+                controlsStarter()
+                preset2Site();
+                menuButtons(10);
+            }
+            
+        })
+    }
+    else if(number > 1 && number < 5)
+    {
+        nav.innerHTML = `<button id="end">Zakończ</button>`
+        const end = document.getElementById("end")
+        end.addEventListener("click", () => {
+            controls.innerHTML = ""
+            checkMain = 0;
+            start();
+        });     
+    }
+    else if(number == 10)
+    {
+        nav.innerHTML = ` <button id="previous">Wstecz</button>
+        <button id="end">Zakończ</button>`
+        const previous = document.getElementById("previous")
+        const next = document.getElementById("next")
+        previous.addEventListener("click", () => 
+        {   
+            controls.innerHTML = ""
+            preset1Site();
+            menuButtons(0);
+        });
+    }
+ 
 
 
 
-
-
+}
 
