@@ -3,11 +3,7 @@
 
 function start(){
     
-function printPresets(){
-    for(let i = 0, length = presets.length; i < length; i ++)
-{
-    addPresetToScreen(presets[i], i);
-}}
+
 
 function updateState (){
     if(checkMain == 0){
@@ -44,16 +40,25 @@ addPreset.addEventListener("click",() => {
     controls.innerHTML = "";
     preset1Site();
     menuButtons(0);
+    
 } )
 
 
 // EDIT PRESET
 if(presets.length > 0){
 editPreset.addEventListener("click",() => {
+
     controls.innerHTML = "";
+    let temp;
     menuButtons(1);
     printPresets()
-    
+    const elements = document.querySelectorAll(".preset");
+        elements.forEach((element, i) => {
+            element.addEventListener("click", () => {
+            temp = presets[i].states;
+            menuButtons(21)
+        })
+    })
 })
 }
 

@@ -186,13 +186,13 @@ svg {
     align-items: center;
     justify-content: space-around;
     width: 90%;
-    height: 10%;
+    height: 12%;
     background-color: rgb(92, 92, 92);
     align-self: center;
 }
 
 .preset-name {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
 
 .name-input {
@@ -200,24 +200,45 @@ svg {
     font-size: 1.2rem;
 }
 
+.name-input:focus {
+    outline: none;
+}
 .svg-container {
     background-color: rgb(92, 92, 92);
     width: 90%;
     height: 80%;
     margin-bottom: 1rem;
+    display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
 }
 
+.svgBox {
+    width: 25%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #25dfb1;
+    box-sizing: border-box;
+    border: black 1px solid;
+    cursor: pointer;
+}
 
+.svgIcon {
+    fill: white
+}
 
-
-
-
-
+.svgBox:hover .svgIcon {
+    fill: #25dfb1;
+    transform: scale(1.1);
+    transition-duration: 0.2s;
+}
 
 
 /* Add Preset elements2*/
 .addPreset-container {
-    background-color: blue;
+    background-color: rgb(92, 92, 92);
     width: 45%;
     height: 38%;
     margin-bottom: 1rem;
@@ -229,7 +250,7 @@ svg {
 .addPresetContainer-bottom {
     height: 15%;
     width: 95%;
-    background-color: #25dfb1;
+    background-color: rgb(92, 92, 92);
 }
 
 .addPresetRoom-name {
@@ -238,6 +259,7 @@ svg {
     justify-content: center;
     align-items: center;
     display: flex;
+    color: white;
 }
 
 .addPresetContainer-bottom .addPresetRoom-name {
