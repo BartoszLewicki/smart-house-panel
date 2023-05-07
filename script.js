@@ -1,12 +1,9 @@
 "use strict"
 
-
 function start(){
     
-
-
 function updateState (){
-    if(checkMain == 0){
+    if(checkMain == false){
         for(let element = 0; element < preset.length; element++)
         {
             preset[element].addEventListener('click', function(){
@@ -47,18 +44,7 @@ addPreset.addEventListener("click",() => {
 // EDIT PRESET
 if(presets.length > 0){
 editPreset.addEventListener("click",() => {
-
-    controls.innerHTML = "";
-    let temp;
-    menuButtons(1);
-    printPresets()
-    const elements = document.querySelectorAll(".preset");
-        elements.forEach((element, i) => {
-            element.addEventListener("click", () => {
-            temp = presets[i].states;
-            menuButtons(21)
-        })
-    })
+    presetToEdit()
 })
 }
 
@@ -66,7 +52,7 @@ editPreset.addEventListener("click",() => {
 // DELETE PRESET
 if(presets.length > 0){
 deletePreset.addEventListener("click", () => {
-    checkMain = 1;
+    checkMain = true;
     function helper () {
         menuButtons(2);
         const elements = document.querySelectorAll(".preset");

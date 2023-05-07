@@ -1,8 +1,11 @@
 "use strict"
 
-let checkMain = 0;
+let checkMain = false;
 let presetName;
 let inputValue = "";
+let iconNumber = -1;
+let temp;
+let checkPreset = false;
 
 const stateOutput = document.getElementById("right-half");
 const screen = document.querySelector("#screen");
@@ -264,8 +267,18 @@ function preset1Site (){
         svgContainer.append(box);
     }
     controls.append(nameContainer,svgContainer);
-    
 
+    const boxes = document.querySelectorAll(".svgBox");
+    const icons = document.querySelectorAll(".svgIcon");
+    boxes.forEach((box, index) => {
+
+        box.addEventListener("click", function onClick(svg){
+            if(iconNumber != -1){
+            icons[iconNumber].style.fill = "white"}
+            iconNumber = index;
+            icons[index].style.fill = "#25dfb1";
+        })
+    })
 }
 
 function preset2Site (){
@@ -288,6 +301,7 @@ function preset2Site (){
                 element.classList.add("output");
                 const name = document.createElement("div");
                 name.classList.add("output-name")
+                name.innerHTML = outNames[j + 6]
                 const value = document.createElement("div");
                 value.classList.add("output-value")
                 element.append(name,value);
@@ -314,6 +328,7 @@ function preset2Site (){
                 element.classList.add("output");
                 const name = document.createElement("div");
                 name.classList.add("output-name")
+                name.innerHTML = outNames[j];
                 const value = document.createElement("div");
                 value.classList.add("output-value")
                 element.append(name,value);
@@ -327,6 +342,9 @@ function preset2Site (){
             controls.append(container)
         }
     }
+
+    
+
 }
 
 function controlsStarter(){
@@ -337,10 +355,35 @@ function controlsStarter(){
 
 
 
+function modal()
+{
+    const modalWindow = document.createElement("div");
+    modalWindow.classList.add("modalWindow");
+    controls.append(modalWindow);
+    const modalText = document.createElement("p");
+    modalText.classList.add("modalText");
+    modalWindow.append(modalText);
+}
+
+function presetToEdit()
+{
+    controls.innerHTML = "";
+            controls.style.justifyContent = "flex-start"
+            menuButtons(1);
+            printPresets()
+            const elements = document.querySelectorAll(".preset");
+                elements.forEach((element, i) => {
+                element.addEventListener("click", () => {
+                temp = presets[i].states;
+                checkPreset = true;
+        })
+    })
+}
+
 
 // BUTTON FUNCTIONS
 function menuButtons (number){
-    if(number == 0 || number == 1 || number == 21){
+    if(number == 0 || number == 1){
         nav.innerHTML = ` <button id="previous">Wstecz</button>
         <button id="next">Dalej</button>`
         const previous = document.getElementById("previous");
@@ -350,27 +393,59 @@ function menuButtons (number){
             controlsStarter()
             controls.innerHTML = ""
             start();
+            checkPreset = false;
         });
         next.addEventListener("click", () => {
             if(document.querySelector(".name-input"))
             {
             inputValue = document.querySelector(".name-input").value;
             }
-            if(number == 0 || number == 21){
                 controls.innerHTML = ""
+                if(number == 0 && (inputValue == "" || iconNumber == -1))
+                {
+                    modal()
+                    let modalText = document.querySelector(".modalText");
+                    if(inputValue == "" && iconNumber == -1){
+                        modalText.innerHTML = "Nie podano nazwy presetu i nie wybrano ikony<br><br><br><br>Proszę wybrać nazwę presetu oraz zaznaczyć odpowiednią ikonę"
+                        menuButtons(100)
+                    }
+                    else if(inputValue == "" && iconNumber != -1)
+                    {
+                        modalText.innerHTML = "Nie podano nazwy presetu<br><br><br><br>Proszę wpisać nazwę presetu w odpowiednim polu"
+                        menuButtons(100)
+                    }
+                    else if(inputValue != "" && iconNumber == -1)
+                    {
+                        modalText.innerHTML = "Nie wybrano ikony presetu<br><br><br><br>Proszę zaznaczyć odpowiednią ikonę"
+                        menuButtons(100)
+                    }
+                }
+
+                if(number == 1 && checkPreset == false)
+                {
+                    modal();
+                    let modalText = document.querySelector(".modalText");
+                    modalText.innerHTML = "Nie wybrano presetu do edycji<br><br><br><br>Proszę zaznaczyć preset"
+                    controls.style.justifyContent = "center";
+                    menuButtons(101)
+                }
+
+                if((number == 1 && checkPreset == true) || (number == 0 && inputValue != "" && iconNumber != -1))
+                {
                 controlsStarter()
                 preset2Site();
+                
                 if(number == 0)
                 {
                     menuButtons(10);
                 }
-                else if(number == 21)
+                else if(number == 1)
                 {
                     inputValue = ""
-                    menuButtons(22);
+                    menuButtons(20);
                 }
             }
-            
+        
         })
     }
     else if(number > 1 && number < 5)
@@ -379,7 +454,7 @@ function menuButtons (number){
         const end = document.getElementById("end")
         end.addEventListener("click", () => {
             controls.innerHTML = ""
-            checkMain = 0;
+            checkMain = false;
             start();
         });     
     }
@@ -392,18 +467,20 @@ function menuButtons (number){
         previous.addEventListener("click", () => 
         {   
             controls.innerHTML = ""
+            iconNumber = -1;
             preset1Site();
             menuButtons(0);
         });
         end.addEventListener("click", () => 
         {   
             presetNamesPL.push(inputValue);
-            presets.push({code: `<p class="preset-text">${presetNamesPL[presetNamesPL.length-1]}</p>`})
+            presets.push({code:`${svgArray[iconNumber]} <p class="preset-text">${presetNamesPL[presetNamesPL.length-1]}</p>`})
             controls.innerHTML = ""
+            iconNumber = -1;
             start();
         });
     }
-    else if(number == 22)
+    else if(number == 20)
     {
         nav.innerHTML = ` <button id="previous">Wstecz</button>
         <button id="end">Zakończ</button>`
@@ -411,26 +488,42 @@ function menuButtons (number){
         const end = document.getElementById("end")
         previous.addEventListener("click", () => 
         {   
-            controls.innerHTML = "";
-            controls.style.justifyContent = "flex-start"
-            let temp;
-            menuButtons(1);
-            printPresets()
-            const elements = document.querySelectorAll(".preset");
-                elements.forEach((element, i) => {
-                element.addEventListener("click", () => {
-                temp = presets[i].states;
-                menuButtons(21)
-        })
-    })
+            presetToEdit();
+            checkPreset = false;
         });
         end.addEventListener("click", () => 
         {   
             controls.innerHTML = ""
             start();
+            checkPreset = false;
+        });
+    }
+    else if(number == 100)
+    {
+        nav.innerHTML = ` <button id="previous">Wstecz</button>`
+        const previous = document.getElementById("previous");
+        previous.addEventListener("click", () => 
+        {  
+            controls.innerHTML = ""
+            preset1Site();
+            menuButtons(0);
+            inputValue = "";
+            iconNumber = -1;
+        });
+    }
+    else if(number == 101)
+    {
+        nav.innerHTML = ` <button id="previous">Wstecz</button>`
+        const previous = document.getElementById("previous");
+        previous.addEventListener("click", () => 
+        {  
+            controls.innerHTML = ""
+            presetToEdit()
+            menuButtons(1);
+            checkPreset = false
         });
     }
 
- 
+
 }
 

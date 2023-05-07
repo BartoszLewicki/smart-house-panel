@@ -177,8 +177,13 @@ svg {
 
 .output-name {
     border-right: 1px black solid;
+    color: black;
 }
-
+    
+.containerBody .output-name,
+.containerBottomBody .output-name {
+    color: white;
+}
 /* Add Preset elements1*/
 .new-name {
     display: flex;
@@ -288,4 +293,22 @@ svg {
     height: 65%;
     width: 25%;
     margin-top: -0.1rem;
+}
+.modalWindow {
+    margin-top: 2rem;
+    background-color: rgb(92, 92, 92);
+    width: 80%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 2rem;
+}
+
+.modalText {
+    color: white;
+    font-size: 1.3rem;
+    text-align: center;
+    line-height: 1.7rem;
 }
