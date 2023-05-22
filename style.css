@@ -198,6 +198,9 @@ svg {
 
 .preset-name {
     font-size: 1.3rem;
+    color: rgb(255, 255, 255);
+        box-sizing: border-box;
+        text-shadow: black 1px 1px 1px;
 }
 
 .name-input {
@@ -311,4 +314,11 @@ svg {
     font-size: 1.3rem;
     text-align: center;
     line-height: 1.7rem;
+}
+.out-val {
+    color: white;
+}
+
+.out-val:hover {
+    cursor: pointer;
 }

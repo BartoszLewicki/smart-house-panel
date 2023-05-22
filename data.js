@@ -6,6 +6,8 @@ let inputValue = "";
 let iconNumber = -1;
 let temp;
 let checkPreset = false;
+let tempArr =[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+let tempIndex;
 
 const stateOutput = document.getElementById("right-half");
 const screen = document.querySelector("#screen");
@@ -272,7 +274,7 @@ function preset1Site (){
     const icons = document.querySelectorAll(".svgIcon");
     boxes.forEach((box, index) => {
 
-        box.addEventListener("click", function onClick(svg){
+        box.addEventListener("click", () => {
             if(iconNumber != -1){
             icons[iconNumber].style.fill = "white"}
             iconNumber = index;
@@ -303,7 +305,7 @@ function preset2Site (){
                 name.classList.add("output-name")
                 name.innerHTML = outNames[j + 6]
                 const value = document.createElement("div");
-                value.classList.add("output-value")
+                value.classList.add("output-value", "out-val")
                 element.append(name,value);
                 body.append(element) 
             }
@@ -330,9 +332,9 @@ function preset2Site (){
                 name.classList.add("output-name")
                 name.innerHTML = outNames[j];
                 const value = document.createElement("div");
-                value.classList.add("output-value")
+                value.classList.add("output-value", "out-val")
                 element.append(name,value);
-                body.append(element)
+                body.append(element);
             }
             if(i > 1 && i < 4)
             {
@@ -342,10 +344,50 @@ function preset2Site (){
             controls.append(container)
         }
     }
-
-    
-
 }
+
+function editPresetValues(type, i){
+    tempArr =[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    const box = document.querySelectorAll(".out-val")
+
+    if(type === "edit"){
+        tempArr = presets[i].states.flat();
+    }
+
+    box.forEach((element, index, arr) => {
+        if(type === "add"){
+            element.value = 0;
+            element.innerHTML = 0;
+        
+        if(index == 1 || index == 7 || index == 13 || index == 18){
+            tempArr[index] = 15;
+            element.value = 15;
+            element.innerHTML = 15;
+        }}
+
+        if(type === "edit"){
+            arr[index].value = tempArr[index];
+            arr[index].innerHTML = tempArr[index];
+        }
+
+
+        element.addEventListener('click', () => {
+            if(element.value == 0){
+                element.value =1
+            }else if(element.value ==1){
+                element.value = 0
+            }
+
+
+            element.innerHTML = element.value
+            tempArr[index] = arr[index].value
+        })
+    })
+    
+}
+
+
+
 
 function controlsStarter(){
     controls.style.flexWrap = "wrap";
@@ -371,11 +413,17 @@ function presetToEdit()
             controls.style.justifyContent = "flex-start"
             menuButtons(1);
             printPresets()
+            tempIndex = 0;
             const elements = document.querySelectorAll(".preset");
-                elements.forEach((element, i) => {
+                elements.forEach((element, i, arr) => {
                 element.addEventListener("click", () => {
                 temp = presets[i].states;
                 checkPreset = true;
+                arr[tempIndex].firstChild.style.fill = "white"
+                arr[i].firstChild.style.fill = "#25dfb1"
+                arr[tempIndex].lastChild.style.color = "white"
+                arr[i].lastChild.style.color = "#25dfb1"    
+                tempIndex = i;
         })
     })
 }
@@ -438,11 +486,13 @@ function menuButtons (number){
                 if(number == 0)
                 {
                     menuButtons(10);
+                    editPresetValues("add");
                 }
                 else if(number == 1)
                 {
                     inputValue = ""
                     menuButtons(20);
+                    editPresetValues("edit", tempIndex);
                 }
             }
         
@@ -474,7 +524,21 @@ function menuButtons (number){
         end.addEventListener("click", () => 
         {   
             presetNamesPL.push(inputValue);
-            presets.push({code:`${svgArray[iconNumber]} <p class="preset-text">${presetNamesPL[presetNamesPL.length-1]}</p>`})
+            let properArr = [[],[],[],[],[]]
+            for(let i = 0; i <tempArr.length; i++){
+                if(i<6)
+                properArr[0].push(tempArr[i])
+                if(i>5 && i<12)
+                properArr[1].push(tempArr[i])
+                if(i>11 && i<17)
+                properArr[2].push(tempArr[i])
+                if(i>16 && i<22)
+                properArr[3].push(tempArr[i])
+                if(i>21)
+                properArr[4].push(tempArr[i])        
+            }
+            console.log(properArr)
+            presets.push({code:`${svgArray[iconNumber]} <p class="preset-text">${presetNamesPL[presetNamesPL.length-1]}</p>`, states:properArr})
             controls.innerHTML = ""
             iconNumber = -1;
             start();
@@ -493,6 +557,20 @@ function menuButtons (number){
         });
         end.addEventListener("click", () => 
         {   
+            let properArr = [[],[],[],[],[]]
+            for(let i = 0; i <tempArr.length; i++){
+                if(i<6)
+                properArr[0].push(tempArr[i])
+                if(i>5 && i<12)
+                properArr[1].push(tempArr[i])
+                if(i>11 && i<17)
+                properArr[2].push(tempArr[i])
+                if(i>16 && i<22)
+                properArr[3].push(tempArr[i])
+                if(i>21)
+                properArr[4].push(tempArr[i])        
+            }
+                presets[tempIndex].states = properArr;
             controls.innerHTML = ""
             start();
             checkPreset = false;
