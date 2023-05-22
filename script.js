@@ -78,7 +78,9 @@ manual.addEventListener("click",() => {
     controls.innerHTML = ""
     controls.style.justifyContent = "space-around"
     preset2Site()
-    menuButtons(3); 
+    menuButtons(3);
+    editPresetValues("manual");
+
 })
 
 // SETTINGS

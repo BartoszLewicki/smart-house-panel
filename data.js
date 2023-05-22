@@ -214,6 +214,7 @@ function printPresets(){
 
 // CHANGE STATES ACCODRING TO SELECTED PRESET
 function writeState (element) {
+    tempArr = presets[element].states.flat();
     if(presets[0] != null){
     for(let i = 0; i < 5; i++)
     {       
@@ -347,12 +348,15 @@ function preset2Site (){
 }
 
 function editPresetValues(type, i){
-    tempArr =[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     const box = document.querySelectorAll(".out-val")
-
+    if(type === "edit" || type === "add"){
+        tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    }
     if(type === "edit"){
         tempArr = presets[i].states.flat();
     }
+
+    let forNow = states.flat();
 
     box.forEach((element, index, arr) => {
         if(type === "add"){
@@ -365,7 +369,7 @@ function editPresetValues(type, i){
             element.innerHTML = 15;
         }}
 
-        if(type === "edit"){
+        if(type === "edit" || type === "manual"){
             arr[index].value = tempArr[index];
             arr[index].innerHTML = tempArr[index];
         }
@@ -377,10 +381,14 @@ function editPresetValues(type, i){
             }else if(element.value ==1){
                 element.value = 0
             }
-
-
             element.innerHTML = element.value
             tempArr[index] = arr[index].value
+
+            if(type === "manual"){
+                for(let j = 0; j < forNow.length; j++){
+                    forNow[j].innerHTML = tempArr[j]
+                }
+            }
         })
     })
     
@@ -537,7 +545,6 @@ function menuButtons (number){
                 if(i>21)
                 properArr[4].push(tempArr[i])        
             }
-            console.log(properArr)
             presets.push({code:`${svgArray[iconNumber]} <p class="preset-text">${presetNamesPL[presetNamesPL.length-1]}</p>`, states:properArr})
             controls.innerHTML = ""
             iconNumber = -1;
