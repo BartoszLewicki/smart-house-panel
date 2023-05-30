@@ -175,9 +175,13 @@ svg {
     align-items: center;
 }
 
+.output-value {
+    font-size: 1.4rem;
+}
 .output-name {
     border-right: 1px black solid;
     color: black;
+    font-size: 2rem;
 }
     
 .containerBody .output-name,
@@ -199,7 +203,7 @@ svg {
 .preset-name {
     font-size: 1.3rem;
     color: rgb(255, 255, 255);
-        box-sizing: border-box;
+    box-sizing: border-box;
         text-shadow: black 1px 1px 1px;
 }
 
@@ -217,7 +221,7 @@ svg {
     height: 80%;
     margin-bottom: 1rem;
     display: flex;
-        flex-wrap: wrap;
+    flex-wrap: wrap;
         align-content: flex-start;
 }
 
@@ -284,6 +288,10 @@ svg {
     margin-top: -0.5rem;
 }
 
+.containerBody .output-name,
+.containerBottomBody .output-name {
+    font-size: 1.45rem;
+}
 .containerBottomBody {
     width: 100%;
     height: 65%;
@@ -317,8 +325,29 @@ svg {
 }
 .out-val {
     color: white;
+    font-size: 1.1rem;
 }
 
 .out-val:hover {
     cursor: pointer;
+}
+.clock {
+    box-sizing: border-box;
+    text-align: center;
+    color: #17D4FE;
+    font-size: 4rem;
+    font-weight: 500;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    letter-spacing: 7px;
+    color: hsl(197, 88%, 78%);
+    text-shadow: black 1px 1px 1px;
+}
+
+#dateText {
+    font-size: 3rem;
+    color: hsl(197, 88%, 78%);
+    text-shadow: black 1px 1px 1px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 300;
+    text-align: center;
 }

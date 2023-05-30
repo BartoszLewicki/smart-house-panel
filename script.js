@@ -1,4 +1,35 @@
 "use strict"
+let timer;
+
+const startLogOutTimer = function(){
+    let time = 60;
+  
+    const tick = function(){
+        console.log(time)
+        if(time === 0){
+            clearInterval(timer)
+            controls.innerHTML = `<div id="MyClockDisplay" class="clock" onload="showTime()"></div>
+            <div id="dateText"></div>`;
+            header.style.opacity = 0;
+            clockTime = showTime();
+            controls.style.justifyContent = "center";
+            controls.style.alignItems = "center"
+            controls.style.marginTop = '20%'
+                screen.addEventListener('click', () =>{
+                    controls.style.marginTop = '0'
+                    clearTimeout(clockTime)
+                    controls.innerHTML = ""
+                    header.style.opacity = 1;
+                    start()
+                },{ once: true }) 
+            }
+            time--;
+      }
+  
+    tick()
+    timer = setInterval(tick,1000);
+    return timer;
+  }
 
 function start(){
     
@@ -8,6 +39,8 @@ function updateState (){
         {
             preset[element].addEventListener('click', function(){
                 writeState(element)
+                clearInterval(timer);
+                timer = startLogOutTimer()
             })
         }
     }
@@ -37,7 +70,7 @@ addPreset.addEventListener("click",() => {
     controls.innerHTML = "";
     preset1Site();
     menuButtons(0);
-    
+    clearInterval(timer);
 } )
 
 
@@ -45,6 +78,7 @@ addPreset.addEventListener("click",() => {
 if(presets.length > 0){
 editPreset.addEventListener("click",() => {
     presetToEdit()
+    clearInterval(timer);
 })
 }
 
@@ -70,6 +104,7 @@ deletePreset.addEventListener("click", () => {
     controls.innerHTML = "";
     printPresets();
     helper()
+    clearInterval(timer);
 })
 }
 
@@ -80,22 +115,22 @@ manual.addEventListener("click",() => {
     preset2Site()
     menuButtons(3);
     editPresetValues("manual");
-
+    clearInterval(timer);
 })
 
 // SETTINGS
 settings.addEventListener("click",() => {
     controls.innerHTML = ""
-    menuButtons(4);   
+    menuButtons(4);
+    clearInterval(timer);   
 })
-    
+
     updateState();
+    if(timer) clearInterval(timer);
+    timer = startLogOutTimer()
 }
 
-
 start()
-
-
 
 
 

@@ -13,11 +13,12 @@ const stateOutput = document.getElementById("right-half");
 const screen = document.querySelector("#screen");
 const controls = document.querySelector("#controls");
 const nav = document.querySelector("nav");
+const header = document.querySelector('header')
 
 const presetNamesPL = ["Dzień", "Noc", "Sprzątanie", "Poza domem", "Impreza", "Goście", "Relaks"];
 const roomNames = ["Salon", "Sypialnia", "Kuchnia", "Łazienka", "Pozostałe"];
 const roomIDs = ["living-room", "bedroom", "kitchen", "bathroom", "house"];
-const outNames = ["Light", "Temp", "Blinds", "Socket", "Tv", "Sound", "Alarm", "Garage", "Clean"];
+const outNames = ["💡", "🌡️", "🪟", "⚡", "📺", "🔊", "⏰", "🚙", "🧹"];
 
 const svgArray = [`<svg class="svgIcon" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 122.88"><title>sun-warm</title><path d="M30,13.21A3.93,3.93,0,1,1,36.8,9.27L41.86,18A3.94,3.94,0,1,1,35.05,22L30,13.21Zm31.45,13A35.23,35.23,0,1,1,36.52,36.52,35.13,35.13,0,0,1,61.44,26.2ZM58.31,4A3.95,3.95,0,1,1,66.2,4V14.06a3.95,3.95,0,1,1-7.89,0V4ZM87.49,10.1A3.93,3.93,0,1,1,94.3,14l-5.06,8.76a3.93,3.93,0,1,1-6.81-3.92l5.06-8.75ZM109.67,30a3.93,3.93,0,1,1,3.94,6.81l-8.75,5.06a3.94,3.94,0,1,1-4-6.81L109.67,30Zm9.26,28.32a3.95,3.95,0,1,1,0,7.89H108.82a3.95,3.95,0,1,1,0-7.89Zm-6.15,29.18a3.93,3.93,0,1,1-3.91,6.81l-8.76-5.06A3.93,3.93,0,1,1,104,82.43l8.75,5.06ZM92.89,109.67a3.93,3.93,0,1,1-6.81,3.94L81,104.86a3.94,3.94,0,0,1,6.81-4l5.06,8.76Zm-28.32,9.26a3.95,3.95,0,1,1-7.89,0V108.82a3.95,3.95,0,1,1,7.89,0v10.11Zm-29.18-6.15a3.93,3.93,0,0,1-6.81-3.91l5.06-8.76A3.93,3.93,0,1,1,40.45,104l-5.06,8.75ZM13.21,92.89a3.93,3.93,0,1,1-3.94-6.81L18,81A3.94,3.94,0,1,1,22,87.83l-8.76,5.06ZM4,64.57a3.95,3.95,0,1,1,0-7.89H14.06a3.95,3.95,0,1,1,0,7.89ZM10.1,35.39A3.93,3.93,0,1,1,14,28.58l8.76,5.06a3.93,3.93,0,1,1-3.92,6.81L10.1,35.39Z"/></svg>`, 
 `<svg version="1.1" class="svgIcon" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 122.88 122.89" style="enable-background:new 0 0 122.88 122.89" xml:space="preserve"><g><path d="M49.06,1.27c2.17-0.45,4.34-0.77,6.48-0.98c2.2-0.21,4.38-0.31,6.53-0.29c1.21,0.01,2.18,1,2.17,2.21 c-0.01,0.93-0.6,1.72-1.42,2.03c-9.15,3.6-16.47,10.31-20.96,18.62c-4.42,8.17-6.1,17.88-4.09,27.68l0.01,0.07 c2.29,11.06,8.83,20.15,17.58,25.91c8.74,5.76,19.67,8.18,30.73,5.92l0.07-0.01c7.96-1.65,14.89-5.49,20.3-10.78 c5.6-5.47,9.56-12.48,11.33-20.16c0.27-1.18,1.45-1.91,2.62-1.64c0.89,0.21,1.53,0.93,1.67,1.78c2.64,16.2-1.35,32.07-10.06,44.71 c-8.67,12.58-22.03,21.97-38.18,25.29c-16.62,3.42-33.05-0.22-46.18-8.86C14.52,104.1,4.69,90.45,1.27,73.83 C-2.07,57.6,1.32,41.55,9.53,28.58C17.78,15.57,30.88,5.64,46.91,1.75c0.31-0.08,0.67-0.16,1.06-0.25l0.01,0l0,0L49.06,1.27 L49.06,1.27z M51.86,5.2c-0.64,0.11-1.28,0.23-1.91,0.36l-1.01,0.22l0,0c-0.29,0.07-0.63,0.14-1,0.23 c-14.88,3.61-27.05,12.83-34.7,24.92C5.61,42.98,2.46,57.88,5.56,72.94c3.18,15.43,12.31,28.11,24.51,36.15 c12.19,8.03,27.45,11.41,42.88,8.23c15-3.09,27.41-11.81,35.46-23.49c6.27-9.09,9.9-19.98,10.09-31.41 c-2.27,4.58-5.3,8.76-8.96,12.34c-6,5.86-13.69,10.13-22.51,11.95l-0.01,0c-12.26,2.52-24.38-0.16-34.07-6.54 c-9.68-6.38-16.93-16.45-19.45-28.7l0-0.01C31.25,40.58,33.1,29.82,38,20.77C41.32,14.63,46.05,9.27,51.86,5.2L51.86,5.2z"/></g></svg>`, 
@@ -125,7 +126,11 @@ function createOutput (out) {
         const outValue = document.createElement("div");
         outValue.classList.add(`output-value`);
         outValue.setAttribute("id", temp + i);
-        outValue.innerHTML = 0;
+        if(i == 1){
+            outValue.innerHTML = "15"
+        }else{
+            outValue.innerHTML = '❌';
+        }
         output.append(outValue);
         container.append(output);
         }
@@ -144,7 +149,7 @@ function createOutput (out) {
         const outValue = document.createElement("div");
         outValue.classList.add(`output-value`);
         outValue.setAttribute("id", temp + i);
-        outValue.innerHTML = 0;
+        outValue.innerHTML = '❌';
         output.append(outValue);
         container.append(output);
         }
@@ -222,21 +227,39 @@ function writeState (element) {
         {
         for(let j = 0; j < 6; j++)
         {
-            states[i][j].innerHTML = presets[element].states[i][j]
+            if(presets[element].states[i][j] == 1){
+                states[i][j].innerHTML = '✅'
+            }else if(presets[element].states[i][j] == 0){
+                states[i][j].innerHTML = '❌'
+            }else{
+                states[i][j].innerHTML = presets[element].states[i][j]
+            }
         }
         }
         else if(i > 3)
         {
             for(let j = 0; j < 3; j++)
         {
-            states[i][j].innerHTML = presets[element].states[i][j]
+            if(presets[element].states[i][j] == 1){
+                states[i][j].innerHTML = '✅'
+            }else if(presets[element].states[i][j] == 0){
+                states[i][j].innerHTML = '❌'
+            }else{
+                states[i][j].innerHTML = presets[element].states[i][j]
+            }
         }
         }
         else
         {
             for(let j = 0; j < 5; j++)
         {
-            states[i][j].innerHTML = presets[element].states[i][j]
+            if(presets[element].states[i][j] == 1){
+                states[i][j].innerHTML = '✅'
+            }else if(presets[element].states[i][j] == 0){
+                states[i][j].innerHTML = '❌'
+            }else{
+                states[i][j].innerHTML = presets[element].states[i][j]
+            }
         }
         }
     }
@@ -350,7 +373,7 @@ function preset2Site (){
 function editPresetValues(type, i){
     const box = document.querySelectorAll(".out-val")
     if(type === "edit" || type === "add"){
-        tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+        tempArr = [0,15,0,0,0,0,0,15,0,0,0,0,0,15,0,0,0,0,0,15,0,0,0,0,0];
     }
     if(type === "edit"){
         tempArr = presets[i].states.flat();
@@ -359,9 +382,9 @@ function editPresetValues(type, i){
     let forNow = states.flat();
 
     box.forEach((element, index, arr) => {
-        if(type === "add"){
+        if(type === "add" ||type ==="manual"){
             element.value = 0;
-            element.innerHTML = 0;
+            element.innerHTML = '❌';
         
         if(index == 1 || index == 7 || index == 13 || index == 18){
             tempArr[index] = 15;
@@ -371,22 +394,36 @@ function editPresetValues(type, i){
 
         if(type === "edit" || type === "manual"){
             arr[index].value = tempArr[index];
-            arr[index].innerHTML = tempArr[index];
+            if(arr[index].value == 1){
+                arr[index].innerHTML = '✅'
+            }else if(arr[index].value == 0){
+                arr[index].innerHTML = '❌'
+            }else{
+                arr[index].innerHTML = arr[index].value
+            }
+            
         }
 
 
         element.addEventListener('click', () => {
             if(element.value == 0){
                 element.value =1
+                element.innerHTML = '✅'
             }else if(element.value ==1){
                 element.value = 0
+                element.innerHTML = '❌'
             }
-            element.innerHTML = element.value
             tempArr[index] = arr[index].value
 
             if(type === "manual"){
                 for(let j = 0; j < forNow.length; j++){
-                    forNow[j].innerHTML = tempArr[j]
+                    if(tempArr[j] == 0){
+                        forNow[j].innerHTML = '❌'
+                    }else if(tempArr[j] == 1){
+                        forNow[j].innerHTML = '✅'
+                    }else{
+                        forNow[j].innerHTML = tempArr[j]
+                    }
                 }
             }
         })
@@ -608,7 +645,36 @@ function menuButtons (number){
             checkPreset = false
         });
     }
-
-
 }
 
+let clockTime;
+const showTime = function(){
+
+    const tick = function(){
+    let date = new Date();
+    let h = date.getHours(); // 0 - 23
+    let m = date.getMinutes(); // 0 - 59
+    let s = date.getSeconds(); // 0 - 59
+    let options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    }
+    let place = navigator.language
+    let rest = new Intl.DateTimeFormat(place, options).format(date);
+    
+    h = (h < 10) ? "0" + h : h;
+    m = (m < 10) ? "0" + m : m;
+    s = (s < 10) ? "0" + s : s;
+    
+    let time = `${h}:${m}:${s} <br><br>`;
+        const clock = document.getElementById("MyClockDisplay")
+        clock.innerHTML = time;
+        document.getElementById("dateText").innerHTML = rest;
+    }
+    
+    tick()
+    clockTime = setInterval(tick, 1000);
+    return clockTime;
+}
