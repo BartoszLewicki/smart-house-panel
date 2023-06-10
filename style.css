@@ -204,7 +204,7 @@ svg {
     font-size: 1.3rem;
     color: rgb(255, 255, 255);
     box-sizing: border-box;
-        text-shadow: black 1px 1px 1px;
+    text-shadow: black 1px 1px 1px;
 }
 
 .name-input {
@@ -334,20 +334,60 @@ svg {
 .clock {
     box-sizing: border-box;
     text-align: center;
-    color: #17D4FE;
+    color: #25dfb1;
     font-size: 4rem;
     font-weight: 500;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     letter-spacing: 7px;
-    color: hsl(197, 88%, 78%);
     text-shadow: black 1px 1px 1px;
 }
 
 #dateText {
     font-size: 3rem;
-    color: hsl(197, 88%, 78%);
+    color: #25dfb1;
     text-shadow: black 1px 1px 1px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: 300;
     text-align: center;
+}
+.tempContainer {
+    position: fixed;
+    width: 20%;
+    height: 20%;
+    background-color: gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: black 0.03rem 0.03rem 1rem;
+    z-index: 100;
+    color: white;
+}
+
+.tempRow {
+    width: 99%;
+    background-color: inherit;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.tempRow1 {
+    height: 58%;
+}
+
+.tempRow2 {
+    height: 38%;
+}
+
+.tempBoxUp {
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid black;
+    background-color: rgb(92, 92, 92);
+    font-size: 2.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }

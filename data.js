@@ -1,5 +1,6 @@
 "use strict"
 
+let newState = 'new';
 let checkMain = false;
 let presetName;
 let inputValue = "";
@@ -8,6 +9,8 @@ let temp;
 let checkPreset = false;
 let tempArr =[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 let tempIndex;
+let mousePosition = [];
+let tempAndLight = false
 
 const stateOutput = document.getElementById("right-half");
 const screen = document.querySelector("#screen");
@@ -54,49 +57,49 @@ const presets = [
     code: 
     `${svgArray[0]}
     <p class="preset-text">${presetNamesPL[0]}</p>`,
-    states: [[0,21,0,1,0,1],[0,20,0,0,0,0],[0,20,0,1,1],[0,21,0,0,0],[0,0,0]]
+    states: [["#EAE31A",21,0,1,0,1],["#000000",20,0,0,0,0],["#000000",20,0,1,1],["#000000",21,0,0,0],[0,0,0]]
     },
     {
     name: "night",
     id: "preset1",
     code: `${svgArray[1]}
     <p class="preset-text">${presetNamesPL[1]}</p>`,
-    states: [[0,18,1,0,0,0],[1,18,1,1,0,1],[0,18,1,0,0],[1,20,1,0,0],[1,0,0]]
+    states: [["#000000",18,1,0,0,0],["#000000",18,1,1,0,1],["#000000",18,1,0,0],["#EAE31A",20,1,0,0],[1,0,0]]
     },
         {
     name: "clean",
     id: "preset2",
     code: `${svgArray[2]}
     <p class="preset-text">${presetNamesPL[2]}</p>`,
-    states: [[0,19,0,1,0,1],[0,19,0,1,0,1],[0,19,0,1,1],[0,19,0,1,1],[0,0,1]]
+    states: [["#000000",19,0,1,0,1],["#000000",19,0,1,0,1],["#000000",19,0,1,1],["#FFFDE5",19,0,1,1],[0,0,1]]
     },
     {
     name: "outside",
     id: "preset3",
     code: `${svgArray[3]}
     <p class="preset-text">${presetNamesPL[3]}</p>`,
-    states: [[0,19,0,0,0,0],[0,19,0,0,0,0],[0,19,0,0,0],[0,20,0,0,0],[1,1,0]]
+    states: [["#000000",19,0,0,0,0],["#000000",19,0,0,0,0],["#000000",19,0,0,0],["#000000",20,0,0,0],[1,1,0]]
     },
     {
     name: "party",
     id: "preset4",
     code: `${svgArray[4]}
             <p class="preset-text">${presetNamesPL[4]}</p>`,
-    states: [[1,19,1,1,0,1],[1,18,1,1,0,1],[1,18,1,1,1],[1,19,1,1,1],[0,0,0]]
+    states: [["#50DCB2",19,1,1,0,1],["#BB63E3",18,1,1,0,1],["#E15F5b",18,1,1,1],["#F38CE5",19,1,1,1],[0,0,0]]
     },
     {
     name: "guests",
     id: "preset5",
     code: `${svgArray[5]}
     <p class="preset-text">${presetNamesPL[5]}</p>`,
-    states: [[1,20,0,1,1,0],[0,19,0,0,0,0],[1,19,0,1,0],[1,20,0,1,0],[0,0,0]]
+    states: [["#FFFDE5",20,0,1,1,0],["#000000",19,0,0,0,0],["#FFFDE5",19,0,1,0],["#FFFDE5",20,0,1,0],[0,0,0]]
     },
     {
     name: "chill",
     id: "preset6",
     code: `${svgArray[6]}
     <p class="preset-text">${presetNamesPL[6]}</p>`,
-    states: [[1,21,1,1,0,1],[0,20,1,0,0,0],[0,20,1,0,1],[0,21,1,0,0],[0,0,0]]
+    states: [["#646CD8",21,1,1,0,1],["#000000",20,1,0,0,0],["#000000",20,1,0,1],["#000000",21,1,0,0],[0,0,0]]
     },
 ]
 
@@ -126,8 +129,13 @@ function createOutput (out) {
         const outValue = document.createElement("div");
         outValue.classList.add(`output-value`);
         outValue.setAttribute("id", temp + i);
-        if(i == 1){
+        if(i == 0){
+            outValue.innerHTML = ""
+            outValue.style.backgroundColor = "black"
+        }
+        else if(i == 1){
             outValue.innerHTML = "15"
+            outValue.value = 15;
         }else{
             outValue.innerHTML = '❌';
         }
@@ -219,6 +227,8 @@ function printPresets(){
 
 // CHANGE STATES ACCODRING TO SELECTED PRESET
 function writeState (element) {
+    tempIndex = element
+    newState = 'old'
     tempArr = presets[element].states.flat();
     if(presets[0] != null){
     for(let i = 0; i < 5; i++)
@@ -227,13 +237,22 @@ function writeState (element) {
         {
         for(let j = 0; j < 6; j++)
         {
-            if(presets[element].states[i][j] == 1){
-                states[i][j].innerHTML = '✅'
-            }else if(presets[element].states[i][j] == 0){
-                states[i][j].innerHTML = '❌'
-            }else{
+            if(j == 0){
+                states[i][j].value = presets[element].states[i][j]
+                states[i][j].style.backgroundColor = presets[element].states[i][j]
+            }
+            else if(j == 1){
+                states[i][j].value = presets[element].states[i][j]
                 states[i][j].innerHTML = presets[element].states[i][j]
             }
+            else if(presets[element].states[i][j] == 1){
+                states[i][j].innerHTML = '✅'
+                states[i][j].value = 1
+            }else if(presets[element].states[i][j] == 0){
+                states[i][j].innerHTML = '❌'
+                states[i][j].value = 0
+            }
+           
         }
         }
         else if(i > 3)
@@ -242,10 +261,13 @@ function writeState (element) {
         {
             if(presets[element].states[i][j] == 1){
                 states[i][j].innerHTML = '✅'
+                states[i][j].value = 1
             }else if(presets[element].states[i][j] == 0){
                 states[i][j].innerHTML = '❌'
+                states[i][j].value = 0
             }else{
                 states[i][j].innerHTML = presets[element].states[i][j]
+                states[i][j].value = presets[element].states[i][j]
             }
         }
         }
@@ -253,12 +275,20 @@ function writeState (element) {
         {
             for(let j = 0; j < 5; j++)
         {
-            if(presets[element].states[i][j] == 1){
+            if(j == 0){
+                states[i][j].value = presets[element].states[i][j]
+                states[i][j].style.backgroundColor = presets[element].states[i][j]
+            }
+            else if(j == 1){
+                states[i][j].value = presets[element].states[i][j]
+                states[i][j].innerHTML = presets[element].states[i][j]
+            }
+            else if(presets[element].states[i][j] == 1){
                 states[i][j].innerHTML = '✅'
+                states[i][j].value = 1
             }else if(presets[element].states[i][j] == 0){
                 states[i][j].innerHTML = '❌'
-            }else{
-                states[i][j].innerHTML = presets[element].states[i][j]
+                states[i][j].value = 0
             }
         }
         }
@@ -370,66 +400,218 @@ function preset2Site (){
     }
 }
 
-function editPresetValues(type, i){
-    const box = document.querySelectorAll(".out-val")
-    if(type === "edit" || type === "add"){
-        tempArr = [0,15,0,0,0,0,0,15,0,0,0,0,0,15,0,0,0,0,0,15,0,0,0,0,0];
-    }
-    if(type === "edit"){
-        tempArr = presets[i].states.flat();
+// function getMouse(){
+//     window.addEventListener('click', function(e){
+//         mousePosition[0] = e.pageX;
+//         mousePosition[1] = e.pageY;
+//     })
+// }
+
+
+
+function editTemp(temp, index, place, tempArr, type, i, tempArrAll){
+    tempAndLight = true;
+    let originalTemp = temp;
+    const tempContainer = document.createElement("div");
+    tempContainer.classList.add("tempContainer");
+    const tempRow1 = document.createElement("div");
+    tempRow1.classList.add("tempRow",'tempRow1');
+    const tempRow2 = document.createElement("div");
+    tempRow2.classList.add("tempRow",'tempRow2');
+    const minusSign = document.createElement("div");
+    minusSign.classList.add("minusSign", 'tempBoxUp');
+    minusSign.textContent = `-`
+    const valueBox = document.createElement("div");
+    valueBox.classList.add("valueBox",'tempBoxUp');
+    valueBox.textContent = temp
+    const plusSign = document.createElement("div");
+    plusSign.classList.add("plusSign",'tempBoxUp');
+    plusSign.textContent = `+`
+    tempRow1.append(minusSign, valueBox, plusSign)
+    const acceptBox = document.createElement("div");
+    acceptBox.classList.add('tempBoxUp','acceptBox')
+    acceptBox.textContent = '✅'
+    const denyBox = document.createElement("div");
+    denyBox.classList.add('tempBoxUp','denyBox')
+    denyBox.textContent = '❌'
+    tempRow2.append(acceptBox,denyBox);
+    tempContainer.append(tempRow1, tempRow2)
+    controls.append(tempContainer)
+    let place2 = tempContainer.getBoundingClientRect();
+    if(index == 1 || index == 13){
+        tempContainer.style.left = place.left + "px";
+        tempContainer.style.top = place.top + "px";
+    }else if(index == 7 || index == 18){
+        tempContainer.style.right = (place.right + place2.width - place.width - 10) + "px";
+        tempContainer.style.top = place.top + "px";
     }
 
     let forNow = states.flat();
 
+    plusSign.addEventListener('click', ()=>{
+        if(temp<25){
+            temp++
+            valueBox.textContent = temp
+        }
+    })
+    minusSign.addEventListener('click', ()=>{
+        if(temp>15){
+            temp--
+            valueBox.textContent = temp
+        }
+    })
+
+    function both(newArr){
+        tempAndLight = false;
+        tempArr = newArr
+        tempArrAll[index] = tempArr;
+        if(type == 'manual'){
+            forNow[index].innerHTML = tempArrAll[index]
+            forNow[index].value = tempArrAll[index]
+        }
+        tempContainer.remove()
+        controls.innerHTML = ""
+        preset2Site()
+        editPresetValues(type, i, "isTemp", tempArrAll)
+    }
+
+    denyBox.addEventListener('click', ()=>{
+        both(originalTemp)
+    })
+    acceptBox.addEventListener('click', ()=>{
+        both(temp)
+    })
+
+}
+
+
+let forNow;
+
+function editPresetValues(type, i, isTemp, tempArr2){
+    forNow = states.flat();
+    let box = document.querySelectorAll(".out-val")
+    if(isTemp == "isTemp"){
+        tempArr = tempArr2;
+    }else{
+        if(newState == "new" || type=='add'){
+            tempArr = ["#000000",15,0,0,0,0,"#000000",15,0,0,0,0,"#000000",15,0,0,0,"#000000",15,0,0,0,0,0,0];
+            if(newState =='new')
+            forNow.forEach((element, index) =>{
+                element.value = tempArr[index];
+                if(index == 0 || index == 6 || index == 12 || index == 17){
+                    element.innerHTML = ``
+                    element.style.backgroundColor = tempArr[index];
+                }
+                else if(tempArr[index]==0){
+                    element.innerHTML = "❌"
+                }else if(tempArr[index]==1){
+                    element.innerHTML = "✅"
+                }else
+                element.innerHTML = tempArr[index]
+            })
+            newState='old'
+        }
+        if(type === "edit"){
+            tempArr = presets[i].states.flat(); 
+            console.log(tempArr)
+    }
+    }
+
     box.forEach((element, index, arr) => {
-        if(type === "add" ||type ==="manual"){
+        
+        if(type === "add"){
             element.value = 0;
             element.innerHTML = '❌';
         
         if(index == 1 || index == 7 || index == 13 || index == 18){
-            tempArr[index] = 15;
             element.value = 15;
             element.innerHTML = 15;
+        }else if(index == 0 || index == 6 || index == 12 || index == 17){
+            element.innerHTML = `<input id="colorInput${index}" type="color" value="#000000" />`
+            element.value = '#000000';
+            console.log(tempArr)
         }}
 
-        if(type === "edit" || type === "manual"){
-            arr[index].value = tempArr[index];
+
+
+        if(type === "edit" || type == 'add' || (type =='manual' && newState == 'new')){
+            
+            if(index == 0 || index == 6 || index == 12 || index == 17){
+                element.innerHTML = `<input type="color" id="colorInput${index}" value="${tempArr[index]}" />`
+            }else{
+                arr[index].value = tempArr[index];
+                if(arr[index].value == 1){
+                    arr[index].innerHTML = '✅'
+                }else if(arr[index].value == 0){
+                    arr[index].innerHTML = '❌'
+                }else{
+                    arr[index].innerHTML = tempArr[index]
+                }   
+            }
+            
+        }
+
+        if(type === 'manual'){
+            if(index == 0 || index == 6 || index == 12 || index == 17){
+                element.innerHTML = `<input type="color" id="colorInput${index}" value="${forNow[index].value}" />`
+            }
+            else if(newState == 'old'){
+            arr[index].value = forNow[index].value;
             if(arr[index].value == 1){
                 arr[index].innerHTML = '✅'
             }else if(arr[index].value == 0){
                 arr[index].innerHTML = '❌'
             }else{
-                arr[index].innerHTML = arr[index].value
-            }
-            
+                arr[index].innerHTML = forNow[index].value
+            }   
+        }
         }
 
-
         element.addEventListener('click', () => {
-            if(element.value == 0){
-                element.value =1
+            if(index == 1 || index == 7 || index == 13 || index == 18){
+                let place = element.getBoundingClientRect();
+                if(tempAndLight == false){
+                    element.value = editTemp(element.value, index, place, tempArr[index], type, i, tempArr, element.innerHTML)
+                    element.innerHTML = element.value
+            }}
+            else if(index == 0 || index == 6 || index == 12 || index == 17){
+                const colorBox = document.querySelector(`#colorInput${index}`)
+                colorBox.addEventListener('input', () =>{
+                    if(type == 'manual'){
+                        forNow[index].style.backgroundColor = colorBox.value
+                        forNow[index].value = colorBox.value
+                    }else{
+                        tempArr[index] = colorBox.value
+                    }
+                }) 
+                
+            }
+            else if(element.value == 0){
+                element.value = 1
                 element.innerHTML = '✅'
-            }else if(element.value ==1){
+            }
+            else if(element.value ==1){
                 element.value = 0
                 element.innerHTML = '❌'
             }
             tempArr[index] = arr[index].value
 
+
             if(type === "manual"){
                 for(let j = 0; j < forNow.length; j++){
-                    if(tempArr[j] == 0){
-                        forNow[j].innerHTML = '❌'
-                    }else if(tempArr[j] == 1){
-                        forNow[j].innerHTML = '✅'
-                    }else{
-                        forNow[j].innerHTML = tempArr[j]
+                    if(tempArr[index] == 0){
+                        forNow[index].value = 0;
+                        forNow[index].innerHTML = '❌'
+                    }else if(tempArr[index] == 1){
+                        forNow[index].innerHTML = '✅'
+                        forNow[index].value = 1;
                     }
                 }
             }
-        })
     })
-    
+})
 }
+
 
 
 
@@ -550,6 +732,7 @@ function menuButtons (number){
         end.addEventListener("click", () => {
             controls.innerHTML = ""
             checkMain = false;
+            tempAndLight = false
             start();
         });     
     }
@@ -565,9 +748,11 @@ function menuButtons (number){
             iconNumber = -1;
             preset1Site();
             menuButtons(0);
+            tempAndLight = false
         });
         end.addEventListener("click", () => 
         {   
+            tempAndLight = false
             presetNamesPL.push(inputValue);
             let properArr = [[],[],[],[],[]]
             for(let i = 0; i <tempArr.length; i++){
@@ -598,9 +783,11 @@ function menuButtons (number){
         {   
             presetToEdit();
             checkPreset = false;
+            tempAndLight = false
         });
         end.addEventListener("click", () => 
         {   
+            tempAndLight = false
             let properArr = [[],[],[],[],[]]
             for(let i = 0; i <tempArr.length; i++){
                 if(i<6)

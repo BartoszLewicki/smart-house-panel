@@ -5,7 +5,6 @@ const startLogOutTimer = function(){
     let time = 60;
   
     const tick = function(){
-        console.log(time)
         if(time === 0){
             clearInterval(timer)
             controls.innerHTML = `<div id="MyClockDisplay" class="clock" onload="showTime()"></div>
@@ -114,7 +113,7 @@ manual.addEventListener("click",() => {
     controls.style.justifyContent = "space-around"
     preset2Site()
     menuButtons(3);
-    editPresetValues("manual");
+    editPresetValues("manual", tempIndex);
     clearInterval(timer);
 })
 
@@ -131,6 +130,7 @@ settings.addEventListener("click",() => {
 }
 
 start()
+
 
 
 
