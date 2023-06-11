@@ -2,7 +2,7 @@
 let timer;
 
 const startLogOutTimer = function(){
-    let time = 60;
+    let time = 10;
   
     const tick = function(){
         if(time === 0){
@@ -47,12 +47,44 @@ function updateState (){
 
 printPresets();
 const preset = document.querySelectorAll(".preset");
+if(lang == "PL"){
+    nav.innerHTML = `<button id="addPreset">Dodaj preset</button>
+    <button id="editPreset">Edytuj preset</button>
+    <button id="deletePreset">Usuń preset</button>
+    <button id="manual">Sterowanie ręczne</button>
+    <button id="settings">Ustawienia</button>`
+}else if(lang == "EN"){
+    nav.innerHTML = `<button id="addPreset">Add preset</button>
+    <button id="editPreset">Edit preset</button>
+    <button id="deletePreset">Delete preset</button>
+    <button id="manual">Manual control</button>
+    <button id="settings">Settings</button>`
+}else if(lang == "FR"){
+    nav.innerHTML = `<button id="addPreset">Ajouter un préréglage</button>
+    <button id="editPreset">Modifier le préréglage</button>
+    <button id="deletePreset">Supprimer le préréglage</button>
+    <button id="manual">Contrôle manuel</button>
+    <button id="settings">Paramètres</button>`
+}else if(lang == "DE"){
+    nav.innerHTML = `<button id="addPreset">Voreinstellung hinzufügen</button>
+    <button id="editPreset">Voreinstellung bearbeiten</button>
+    <button id="deletePreset">Voreinstellung löschen</button>
+    <button id="manual">Manuelle Kontrolle</button>
+    <button id="settings">Einstellungen</button>`
+}else if(lang == "ES"){
+    nav.innerHTML = `<button id="addPreset">Agregar preestablecido</button>
+    <button id="editPreset">Editar preajuste</button>
+    <button id="deletePreset">Eliminar preestablecido</button>
+    <button id="manual">Control manual</button>
+    <button id="settings">Ajustes</button>`
+}else if(lang == "IT"){
+    nav.innerHTML = `<button id="addPreset">Aggiungi preimpostazione</button>
+    <button id="editPreset">Modifica preimpostazione</button>
+    <button id="deletePreset">Elimina preimpostazione</button>
+    <button id="manual">Controllo manuale</button>
+    <button id="settings">Impostazioni</button>`
+}
 
-nav.innerHTML = `<button id="addPreset">Dodaj preset</button>
-<button id="editPreset">Edytuj preset</button>
-<button id="deletePreset">Usuń preset</button>
-<button id="manual">Sterowanie ręczne</button>
-<button id="settings">Ustawienia</button>`
 
 const addPreset = document.querySelector("#addPreset");
 const editPreset = document.querySelector("#editPreset");
@@ -121,6 +153,8 @@ manual.addEventListener("click",() => {
 settings.addEventListener("click",() => {
     controls.innerHTML = ""
     menuButtons(4);
+    printSettings();
+    settingsListener();
     clearInterval(timer);   
 })
 

@@ -1,7 +1,17 @@
+:root {
+    --main-bg: gray;
+    --nav-bg: rgba(95, 95, 95, 0.747);
+    --nav-button: #3535355d;
+    --action: #25dfb1;
+    --element: rgb(92, 92, 92);
+    --text: white;
+    --border: black;
+    --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 body, .half, main, #screen, header, nav, #controls, .preset
 {
     display: flex;
-    font-family: sans-serif;
+    font-family: var(--font)
 }
 
 #left-half,
@@ -30,7 +40,7 @@ main
 {
     height: 88%;
     width: 88%;
-    background-color: gray;
+    background-color: var(--main-bg);
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
@@ -41,7 +51,7 @@ header
 {
     width: 100%;
     height: 10%;
-    background-color: rgba(95, 95, 95, 0.747);
+    background-color: var(--nav-bg);
     box-shadow: 0.05rem 0.05rem 0.3rem rgba(20, 20, 20, 0.493);
     align-items: center;
 }
@@ -51,24 +61,26 @@ nav
     width: 100%;
     justify-content: space-around;
     height: 100%;
+    font-family: var(--font);
 }
 
 button{
     font-size: 0.95rem;
-    color: #ffffff;
-    background-color: #3535355d;
+    color: var(--text);
+        background-color: var(--nav-button);
     width: 100%;
     height: 100%;
     border-top: 2px solid rgba(143, 143, 143, 0.532);
     transition : 0.2s;
     cursor: pointer;
     box-sizing: border-box;
+    font-family: var(--font);
 }
 
 
 button:hover{
-    color: #25dfb1;
-    border-top: solid 2px #25dfb1;
+    color: var(--action);
+        border-top: solid 2px var(--action);
 }
 
 #controls
@@ -83,14 +95,14 @@ button:hover{
 {
     width: 23%;
     height: 8rem;
-    background-color: rgb(92, 92, 92);
+    background-color: var(--element);
     margin: 1%;
-    border: 2px solid rgb(92, 92, 92);
+    border: 2px solid var(--element);
     box-sizing: border-box;
-    box-shadow: 1px 1px 5px rgb(92, 92, 92);
+    box-shadow: 1px 1px 5px var(--element);
     font-size: 1rem;
-    color: white;
-    font-family: sans-serif;
+    color: var(--text);
+        font-family: var(--font);
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
@@ -100,19 +112,19 @@ button:hover{
 }
 
 .preset:hover{
-    color: #25dfb1;
-    border: solid 2px #25dfb1;
-    box-shadow: 1px 1px 15px #25dfb15d;
+    color: var(--action);
+        border: solid 2px var(--action);
+        box-shadow: 1px 1px 15px var(--action);
 }
 
 svg {
     width: 40%;
     height: 40%;
-    fill: white;
+    fill: var(--text);
 }
 
 .preset:hover svg {
-    fill: #25dfb1;
+    fill: var(--action);
 }
 
 #right-half {
@@ -123,7 +135,7 @@ svg {
 .room {
     width: 14rem;
     height: 20rem;
-    border: 1px solid black;
+    border: 1px solid var(--border);
     margin: 6px;
     display: flex;
     flex-direction: column;
@@ -132,7 +144,7 @@ svg {
 .room-name {
     width: 100%;
     height: 20%;
-    border: 1px solid red;
+    border: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -150,7 +162,7 @@ svg {
 .output {
     width: 45%;
     height: 20%;
-    border: black solid 1px;
+    border: var(--border) solid 1px;
     margin-top: 1rem;
     display: flex;
 }
@@ -179,14 +191,14 @@ svg {
     font-size: 1.4rem;
 }
 .output-name {
-    border-right: 1px black solid;
-    color: black;
+    border-right: 1px var(--border) solid;
+        color: var(--border);
     font-size: 2rem;
 }
     
 .containerBody .output-name,
 .containerBottomBody .output-name {
-    color: white;
+    color: var(--text);
 }
 /* Add Preset elements1*/
 .new-name {
@@ -196,15 +208,15 @@ svg {
     justify-content: space-around;
     width: 90%;
     height: 12%;
-    background-color: rgb(92, 92, 92);
+    background-color: var(--element);
     align-self: center;
 }
 
 .preset-name {
     font-size: 1.3rem;
-    color: rgb(255, 255, 255);
+    color: var(--text);
     box-sizing: border-box;
-    text-shadow: black 1px 1px 1px;
+    text-shadow: var(--border) 1px 1px 1px;
 }
 
 .name-input {
@@ -216,7 +228,7 @@ svg {
     outline: none;
 }
 .svg-container {
-    background-color: rgb(92, 92, 92);
+    background-color: var(--element);
     width: 90%;
     height: 80%;
     margin-bottom: 1rem;
@@ -231,18 +243,18 @@ svg {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #25dfb1;
+    color: var(--action);
     box-sizing: border-box;
-    border: black 1px solid;
+    border: var(--border) 1px solid;
     cursor: pointer;
 }
 
 .svgIcon {
-    fill: white
+    fill: var(--text)
 }
 
 .svgBox:hover .svgIcon {
-    fill: #25dfb1;
+    fill: var(--action);
     transform: scale(1.1);
     transition-duration: 0.2s;
 }
@@ -250,7 +262,7 @@ svg {
 
 /* Add Preset elements2*/
 .addPreset-container {
-    background-color: rgb(92, 92, 92);
+    background-color: var(--element);
     width: 45%;
     height: 38%;
     margin-bottom: 1rem;
@@ -262,7 +274,7 @@ svg {
 .addPresetContainer-bottom {
     height: 15%;
     width: 95%;
-    background-color: rgb(92, 92, 92);
+    background-color: var(--element);
 }
 
 .addPresetRoom-name {
@@ -271,7 +283,7 @@ svg {
     justify-content: center;
     align-items: center;
     display: flex;
-    color: white;
+    color: var(--text);
 }
 
 .addPresetContainer-bottom .addPresetRoom-name {
@@ -307,7 +319,7 @@ svg {
 }
 .modalWindow {
     margin-top: 2rem;
-    background-color: rgb(92, 92, 92);
+    background-color: var(--element);
     width: 80%;
     height: 80%;
     display: flex;
@@ -318,13 +330,13 @@ svg {
 }
 
 .modalText {
-    color: white;
+    color: var(--text);
     font-size: 1.3rem;
     text-align: center;
     line-height: 1.7rem;
 }
 .out-val {
-    color: white;
+    color: var(--text);
     font-size: 1.1rem;
 }
 
@@ -334,34 +346,34 @@ svg {
 .clock {
     box-sizing: border-box;
     text-align: center;
-    color: #25dfb1;
+    color: var(--action);
     font-size: 4rem;
     font-weight: 500;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     letter-spacing: 7px;
-    text-shadow: black 1px 1px 1px;
+    text-shadow: var(--border) 1px 1px 1px;
 }
 
 #dateText {
     font-size: 3rem;
-    color: #25dfb1;
-    text-shadow: black 1px 1px 1px;
+    color: var(--action);
+        text-shadow: var(--border) 1px 1px 1px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: 300;
     text-align: center;
 }
 .tempContainer {
     position: fixed;
-    width: 20%;
-    height: 20%;
-    background-color: gray;
+    width: 18%;
+        height: 18%;
+        background-color: var(--main-bg);
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    box-shadow: black 0.03rem 0.03rem 1rem;
+    box-shadow: var(--border) 0.03rem 0.03rem 1rem;
     z-index: 100;
-    color: white;
+    color: var(--text);
 }
 
 .tempRow {
@@ -383,11 +395,67 @@ svg {
     height: 100%;
     width: 100%;
     box-sizing: border-box;
-    border: 1px solid black;
-    background-color: rgb(92, 92, 92);
+    border: 1px solid var(--border);
+        background-color: var(--element);
     font-size: 2.3rem;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+}
+.optionButton {
+    width: 85%;
+    height: 12%;
+    background-color: var(--element);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 1px 1px 5px var(--element);
+}
+
+.optionButton:hover {
+    color: var(--action);
+}
+
+h1 {
+    color: var(--text);
+    font-size: 2rem;
+    margin-bottom: 3rem;
+}
+
+.legendElement {
+    margin-left: 2rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+    color: var(--text);
+    align-self: flex-start;
+    line-height: 1.5rem;
+}
+
+.optionButton0 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.optionButton1 {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.optionButton2 {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.optionButton3 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.optionButton4 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.optionButton5 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

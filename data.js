@@ -1,5 +1,6 @@
 "use strict"
 
+let lang = `PL`
 let newState = 'new';
 let checkMain = false;
 let presetName;
@@ -18,8 +19,31 @@ const controls = document.querySelector("#controls");
 const nav = document.querySelector("nav");
 const header = document.querySelector('header')
 
+const langs = ["Polski", "English", "Français","Deutsch", "Español", "Italiano"]
+const colorsPL = ["Klasyczny","Mars", "Ocean", "Cukierek", "Banan", "Las"];
+const colorsEN = ["Classic","Mars", "Ocean", "Candy", "Banana", "Forest"]
+const colorsFR = ["Classique", "Mars", "Océan", "Bonbon", "Banane", "Forêt"]
+const colorsDE = ["Classic", "Mars", "Ocean", "Candy", "Banana", "Forest"]
+const colorsES = ["Clásico","Marte", "Océano", "Caramelo", "Plátano", "Bosque"]
+const colorsIT = ["Classico","Marte", "Oceano", "Candy", "Banana", "Foresta"]
+const fonts = ["Franklin Gothic Medium","Cambria","Gill Sans","Trebuchet MS","Impact","Segoe UI"]
+
+
 const presetNamesPL = ["Dzień", "Noc", "Sprzątanie", "Poza domem", "Impreza", "Goście", "Relaks"];
+const presetNamesEN = ["Day", "Night", "Clean", "Outside", "Party", "Guests", "Chill"];
+const presetNamesFR = ["Jour", "Nuit", "Propre", "Dehors", "Fête", "Invités", "Relaxation"];
+const presetNamesDE = ["Tag", "Nacht", "Sauber", "Draußen", "Party", "Gäste", "Entspannen"];
+const presetNamesES = ["Día", "Noche", "Limpio", "Afuera", "Fiesta", "Invitados", "Frío"];
+const presetNamesIT = ["Giorno", "Notte", "Pulito", "Fuori", "Festa", "Ospiti", "Rilassamento"];
+let presetNames = [...presetNamesPL]
+
+
 const roomNames = ["Salon", "Sypialnia", "Kuchnia", "Łazienka", "Pozostałe"];
+const roomNamesEN = ["Living room", "Bedroom", "Kitchen", "Bathroom", "Others"];
+const roomNamesFR = ["Salon", "Chambre", "Cuisine", "Salle de bain", "Autres"];
+const roomNamesDE = ["Wohnzimmer", "Schlafzimmer", "Küche", "Badezimmer", "Sonstiges"];
+const roomNamesES = ["Sala de estar", "Dormitorio", "Cocina", "Baño", "Otros"];
+const roomNamesIT = ["Soggiorno", "Camera da letto", "Cucina", "Bagno", "Altro"];
 const roomIDs = ["living-room", "bedroom", "kitchen", "bathroom", "house"];
 const outNames = ["💡", "🌡️", "🪟", "⚡", "📺", "🔊", "⏰", "🚙", "🧹"];
 
@@ -54,54 +78,55 @@ const presets = [
     {
     name: "day",
     id: "preset0",
-    code: 
-    `${svgArray[0]}
-    <p class="preset-text">${presetNamesPL[0]}</p>`,
+    svg: `${svgArray[0]}`,
+    text: `<p class="preset-text">${presetNames[0]}</p>`,
     states: [["#EAE31A",21,0,1,0,1],["#000000",20,0,0,0,0],["#000000",20,0,1,1],["#000000",21,0,0,0],[0,0,0]]
     },
     {
     name: "night",
     id: "preset1",
-    code: `${svgArray[1]}
-    <p class="preset-text">${presetNamesPL[1]}</p>`,
+    svg: `${svgArray[1]}`,
+    text: `<p class="preset-text">${presetNames[1]}</p>`,
     states: [["#000000",18,1,0,0,0],["#000000",18,1,1,0,1],["#000000",18,1,0,0],["#EAE31A",20,1,0,0],[1,0,0]]
     },
         {
     name: "clean",
     id: "preset2",
-    code: `${svgArray[2]}
-    <p class="preset-text">${presetNamesPL[2]}</p>`,
+    svg: `${svgArray[2]}`,
+    text: `<p class="preset-text">${presetNames[2]}</p>`,
     states: [["#000000",19,0,1,0,1],["#000000",19,0,1,0,1],["#000000",19,0,1,1],["#FFFDE5",19,0,1,1],[0,0,1]]
     },
     {
     name: "outside",
     id: "preset3",
-    code: `${svgArray[3]}
-    <p class="preset-text">${presetNamesPL[3]}</p>`,
+    svg: `${svgArray[3]}`,
+    text: `<p class="preset-text">${presetNames[3]}</p>`,
     states: [["#000000",19,0,0,0,0],["#000000",19,0,0,0,0],["#000000",19,0,0,0],["#000000",20,0,0,0],[1,1,0]]
     },
     {
     name: "party",
     id: "preset4",
-    code: `${svgArray[4]}
-            <p class="preset-text">${presetNamesPL[4]}</p>`,
+    svg: `${svgArray[4]}`,
+    text: `<p class="preset-text">${presetNames[4]}</p>`,
     states: [["#50DCB2",19,1,1,0,1],["#BB63E3",18,1,1,0,1],["#E15F5b",18,1,1,1],["#F38CE5",19,1,1,1],[0,0,0]]
     },
     {
     name: "guests",
     id: "preset5",
-    code: `${svgArray[5]}
-    <p class="preset-text">${presetNamesPL[5]}</p>`,
+    svg: `${svgArray[5]}`,
+    text: `<p class="preset-text">${presetNames[5]}</p>`,
     states: [["#FFFDE5",20,0,1,1,0],["#000000",19,0,0,0,0],["#FFFDE5",19,0,1,0],["#FFFDE5",20,0,1,0],[0,0,0]]
     },
     {
     name: "chill",
     id: "preset6",
-    code: `${svgArray[6]}
-    <p class="preset-text">${presetNamesPL[6]}</p>`,
+    svg: `${svgArray[6]}`,
+    text: `<p class="preset-text">${presetNames[6]}</p>`,
     states: [["#646CD8",21,1,1,0,1],["#000000",20,1,0,0,0],["#000000",20,1,0,1],["#000000",21,1,0,0],[0,0,0]]
     },
 ]
+
+
 
 // CREATE OUTPUT STATES
 function createOutput (out) {
@@ -214,7 +239,7 @@ function addPresetToScreen (obj, i) {
     const element = document.createElement("div");
     element.classList.add("preset");
     element.setAttribute("id", i);
-    element.innerHTML = obj.code;
+    element.innerHTML = obj.svg + obj.text;
     controls.append(element);
     }
 }
@@ -306,7 +331,19 @@ function preset1Site (){
     nameContainer.classList.add("new-name");
     const name = document.createElement("p");
     name.classList.add("preset-name");
-    name.innerHTML = "Nazwa Presetu";
+    if(lang == "PL"){
+        name.innerHTML = "Nazwa Presetu";
+    }else if(lang == "EN"){
+        name.innerHTML = "Preset Name";
+    }else if(lang == "FR"){
+        name.innerHTML = "Nom du Préréglage";
+    }else if(lang == "DE"){
+        name.innerHTML = "Voreingestellter Name";
+    }else if(lang == "ES"){
+        name.innerHTML = "Nombre Preestablecido";
+    }else if(lang == "IT"){
+        name.innerHTML = "Nome Predefinito";
+    }
     const input = document.createElement("input");
     input.type = "text";
     input.classList.add("name-input");
@@ -328,11 +365,14 @@ function preset1Site (){
     const icons = document.querySelectorAll(".svgIcon");
     boxes.forEach((box, index) => {
 
+        const root = document.querySelector(':root');
+        const color = getComputedStyle(root).getPropertyValue('--action');
+
         box.addEventListener("click", () => {
             if(iconNumber != -1){
             icons[iconNumber].style.fill = "white"}
             iconNumber = index;
-            icons[index].style.fill = "#25dfb1";
+            icons[index].style.fill = color;
         })
     })
 }
@@ -347,7 +387,19 @@ function preset2Site (){
             container.setAttribute("id", "preset-container"+i);
             const roomName = document.createElement("div");
             roomName.classList.add("addPresetRoom-name");
-            roomName.innerHTML = roomNames[i];
+            if(lang == "PL"){
+                roomName.innerHTML = roomNames[i];
+            }else if(lang == "EN"){
+                roomName.innerHTML = roomNamesEN[i];
+            }else if(lang == "FR"){
+                roomName.innerHTML = roomNamesFR[i];
+            }else if(lang == "DE"){
+                roomName.innerHTML = roomNamesDE[i];
+            }else if(lang == "ES"){
+                roomName.innerHTML = roomNamesES[i];
+            }else if(lang == "IT"){
+                roomName.innerHTML = roomNamesIT[i];
+            }
             const body = document.createElement("div");
             body.classList.add("containerBottomBody");
             body.setAttribute("id", "containerBody"+i);
@@ -374,7 +426,19 @@ function preset2Site (){
             container.setAttribute("id", "preset-container"+i);
             const roomName = document.createElement("div");
             roomName.classList.add("addPresetRoom-name");
-            roomName.innerHTML = roomNames[i];
+            if(lang == "PL"){
+                roomName.innerHTML = roomNames[i];
+            }else if(lang == "EN"){
+                roomName.innerHTML = roomNamesEN[i];
+            }else if(lang == "FR"){
+                roomName.innerHTML = roomNamesFR[i];
+            }else if(lang == "DE"){
+                roomName.innerHTML = roomNamesDE[i];
+            }else if(lang == "ES"){
+                roomName.innerHTML = roomNamesES[i];
+            }else if(lang == "IT"){
+                roomName.innerHTML = roomNamesIT[i];
+            }
             const body = document.createElement("div");
             body.classList.add("containerBody");
             body.setAttribute("id", "containerBody"+i);
@@ -620,6 +684,7 @@ function controlsStarter(){
     controls.style.flexWrap = "wrap";
     controls.style.flexDirection ="row";
     controls.style.justifyContent ="space-around"
+    controls.style.alignContent = `start`
 }
 
 
@@ -646,21 +711,367 @@ function presetToEdit()
                 element.addEventListener("click", () => {
                 temp = presets[i].states;
                 checkPreset = true;
+                const root = document.querySelector(':root');
+                const color = getComputedStyle(root).getPropertyValue('--action');
                 arr[tempIndex].firstChild.style.fill = "white"
-                arr[i].firstChild.style.fill = "#25dfb1"
+                arr[i].firstChild.style.fill = color
                 arr[tempIndex].lastChild.style.color = "white"
-                arr[i].lastChild.style.color = "#25dfb1"    
+                arr[i].lastChild.style.color = color    
                 tempIndex = i;
         })
     })
 }
 
 
+function languageOption(){
+    for(let i = 0; i < 6; i++){
+        let option = document.createElement("div");
+        option.classList.add("optionButton")
+        option.innerHTML = `${langs[i]}`
+        controls.append(option)
+    }
+    const buttons = document.querySelectorAll(".optionButton")
+    const NameText = document.querySelectorAll(".room-name")
+    buttons.forEach((button,index)=>{
+        button.addEventListener('click',()=>{
+            if(index == 0){
+                lang = 'PL'
+                NameText.forEach((element,index)=>{
+                    element.innerHTML = roomNames[index]
+                })
+                presets.forEach((element,index)=>{
+                    if(index<7){
+                        element.text = `<p class="preset-text">${presetNamesPL[index]}</p>`
+                    }
+                })
+            }else if(index == 1){
+                lang = 'EN'
+                NameText.forEach((element,index)=>{
+                    element.innerHTML = roomNamesEN[index]
+                })
+                presets.forEach((element,index)=>{
+                    if(index<7){
+                    element.text = `<p class="preset-text">${presetNamesEN[index]}</p>`
+                    }
+                })
+            }else if(index == 2){
+                lang = 'FR'
+                NameText.forEach((element,index)=>{
+                    element.innerHTML = roomNamesFR[index]
+                })
+                presets.forEach((element,index)=>{
+                    if(index<7){
+                    element.text = `<p class="preset-text">${presetNamesFR[index]}</p>`
+                    }
+                })
+            }else if(index == 3){
+                lang = 'DE'
+                NameText.forEach((element,index)=>{
+                    element.innerHTML = roomNamesDE[index]
+                })
+                presets.forEach((element,index)=>{
+                    if(index<7){
+                    element.text = `<p class="preset-text">${presetNamesDE[index]}</p>`
+                    }
+                })
+            }else if(index == 4){
+                lang = 'ES'
+                NameText.forEach((element,index)=>{
+                    element.innerHTML = roomNamesES[index]
+                })
+                presets.forEach((element,index)=>{
+                    if(index<7){
+                    element.text = `<p class="preset-text">${presetNamesES[index]}</p>`
+                    }
+                })
+            }else if(index == 5){
+                lang = 'IT'
+                NameText.forEach((element,index)=>{
+                    element.innerHTML = roomNamesIT[index]
+                })
+                presets.forEach((element,index)=>{
+                    if(index<7){
+                    element.text = `<p class="preset-text">${presetNamesIT[index]}</p>`
+                    }
+                })
+            }
+            menuButtons(200)
+        })
+    })
+}
+
+function colorOption(){
+    const root = document.querySelector(':root');
+    for(let i = 0; i < 6; i++){
+        let option = document.createElement("div");
+        option.classList.add("optionButton")
+        if(lang == "PL"){
+            option.innerHTML = colorsPL[i]
+        }else if(lang == "EN"){
+            option.innerHTML = colorsEN[i]
+        }else if(lang == "FR"){
+            option.innerHTML = colorsFR[i]
+        }else if(lang == "DE"){
+            option.innerHTML = colorsDE[i]
+        }else if(lang == "ES"){
+            option.innerHTML = colorsES[i]
+        }else if(lang == "IT"){
+            option.innerHTML = colorsIT[i]
+        }
+        controls.append(option)
+    }
+    const buttons = document.querySelectorAll(".optionButton")
+    buttons.forEach((button,index)=>{
+        button.addEventListener('click',()=>{
+            if(index == 0){
+                root.style.setProperty('--main-bg', 'gray');
+                root.style.setProperty('--nav-bg', 'rgba(95, 95, 95, 0.747)');
+                root.style.setProperty('--nav-button', '#3535355d');
+                root.style.setProperty('--action', '#25dfb1');
+                root.style.setProperty('--element', 'rgb(92, 92, 92)');
+            }else if(index == 1){
+                root.style.setProperty('--main-bg', 'rgb(224, 116, 66)');
+                root.style.setProperty('--nav-bg', 'rgba(233, 80, 20, 0.747)');
+                root.style.setProperty('--nav-button', '#e461611f');
+                root.style.setProperty('--action', '#bb1212');
+                root.style.setProperty('--element', 'rgb(236, 146, 86)');
+            }else if(index == 2){
+                root.style.setProperty('--main-bg', 'rgb(39, 105, 192)');
+                root.style.setProperty('--nav-bg', 'rgba(20, 34, 233, 0.747)');
+                root.style.setProperty('--nav-button', '#e0e5ec1f');
+                root.style.setProperty('--action', '#74e3ff');
+                root.style.setProperty('--element', 'rgb(39, 158, 238)');
+            }else if(index == 3){
+                root.style.setProperty('--main-bg', 'rgb(233, 140, 191)');
+                root.style.setProperty('--nav-bg', 'rgba(253, 145, 253, 0.747)');
+                root.style.setProperty('--nav-button', '#7777771f');
+                root.style.setProperty('--action', 'rgb(250, 85, 187)');
+                root.style.setProperty('--element', '#fa9ddb');
+            }else if(index == 4){
+                root.style.setProperty('--main-bg', '#f5e534');
+                root.style.setProperty('--nav-bg', 'rgba(248, 196, 83, 0.747)');
+                root.style.setProperty('--nav-button', '#3b3b361f');
+                root.style.setProperty('--action', 'rgb(248, 141, 0)');
+                root.style.setProperty('--element', '#f5bf0f');
+            }else if(index == 5){
+                root.style.setProperty('--main-bg', '#68df72');
+                root.style.setProperty('--nav-bg', 'rgba(21, 255, 0, 0.747)');
+                root.style.setProperty('--nav-button', '#3b3b361f');
+                root.style.setProperty('--action', 'rgb(29, 173, 0)');
+                root.style.setProperty('--element', '#22c157');
+            }
+        })
+    })
+
+}
+
+function fontOption(){
+    const root = document.querySelector(':root');
+    for(let i = 0; i < 6; i++){
+        let option = document.createElement("div");
+        option.classList.add("optionButton", `optionButton${i}`)
+        option.innerHTML = `${fonts[i]}`
+        controls.append(option)
+    }
+    const buttons = document.querySelectorAll(".optionButton")
+    buttons.forEach((element,index)=>{
+        element.addEventListener('click',()=>{
+            if(index == 0){
+                root.style.setProperty('--font', `'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif`);
+            }else if(index == 1){
+                root.style.setProperty('--font', `Cambria, Cochin, Georgia, Times, 'Times New Roman', serif`);
+            }else if(index == 2){
+                root.style.setProperty('--font', `'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif`);
+            }else if(index == 3){
+                root.style.setProperty('--font', `'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif`);
+            }else if(index == 4){
+                root.style.setProperty('--font', `Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif`);
+            }else if(index == 5){
+                root.style.setProperty('--font', `'Segoe UI', Tahoma, Geneva, Verdana, sans-serif`);
+            }
+        })
+    })
+}
+
+function legend(){
+    let title = document.createElement("h1");
+    if(lang == "PL"){
+        title.innerHTML = `Legenda`
+    }else if(lang == "EN"){
+        title.innerHTML = `Legend`
+    }else if(lang == "FR"){
+        title.innerHTML = `Légende`
+    }else if(lang == "DE"){
+        title.innerHTML = `Legende`
+    }else if(lang == "ES"){
+        title.innerHTML = `Leyenda`
+    }else if(lang == "IT"){
+        title.innerHTML = `Leggenda`
+    }
+    controls.append(title);
+    for(let i = 0; i < 9; i++){
+        let option = document.createElement("p");
+        option.classList.add("legendElement")
+        controls.append(option)
+    }
+    const elements = document.querySelectorAll(".legendElement")
+    if(lang == "PL"){
+        elements[0].innerHTML = `💡 - Kolor oświetlenia`
+        elements[1].innerHTML = `🌡️ - Temperatura pomieszczenia`
+        elements[2].innerHTML = `🪟 - Opuszczenie/podniesienie rolety`
+        elements[3].innerHTML = `⚡ - Załączenie/wyłączenie zasilania w gniazdkach`
+        elements[4].innerHTML = `📺 - Włączenie/ wyłączenie telewizora`
+        elements[5].innerHTML = `🔊 - Włączenie/wyłączenie głośnika`
+        elements[6].innerHTML = `⏰ - Aktywacja/dezaktywacja alarmu`
+        elements[7].innerHTML = `🚙 - Otwarcie/zamknięcie drzwi garażowych`
+        elements[8].innerHTML = `🧹 - Włączenie/wyłączenie odkurzacza`
+    }else if(lang == "EN"){
+        elements[0].innerHTML = `💡 - Lighting color`
+        elements[1].innerHTML = `🌡️ - Room temperature`
+        elements[2].innerHTML = `🪟 - Roller shutter lowering/raising`
+        elements[3].innerHTML = `⚡ - Switching on/off the power in the sockets`
+        elements[4].innerHTML = `📺 - Turns the TV on/off`
+        elements[5].innerHTML = `🔊 - Speaker on/off`
+        elements[6].innerHTML = `⏰ - Enable/disable the alarm`
+        elements[7].innerHTML = `🚙 - Garage door open/close`
+        elements[8].innerHTML = `🧹 - Turning the vacuum cleaner on/off`
+    }else if(lang == "FR"){
+        elements[0].innerHTML = `💡 - Couleur d'éclairage`
+        elements[1].innerHTML = `🌡️ - Température ambiante`
+        elements[2].innerHTML = `🪟 - Descente/montée volet roulant`
+        elements[3].innerHTML = `⚡ - Allumer/éteindre l'alimentation dans les prises`
+        elements[4].innerHTML = `📺 - Allume/éteint le téléviseur`
+        elements[5].innerHTML = `🔊 - Haut-parleur activé/désactivé`
+        elements[6].innerHTML = `⏰ - Activer/désactiver l'alarme`
+        elements[7].innerHTML = `🚙 - Porte de garage ouverte/fermée`
+        elements[8].innerHTML = `🧹 - Allumer/éteindre l'aspirateur`
+    }else if(lang == "DE"){
+        elements[0].innerHTML = `💡 - Lichtfarbe`
+        elements[1].innerHTML = `🌡️ - Zimmertemperatur`
+        elements[2].innerHTML = `🪟 - Rollladen absenken/anheben`
+        elements[3].innerHTML = `⚡ - Strom in den Steckdosen ein-/ausschalten`
+        elements[4].innerHTML = `📺 - Schaltet den Fernseher ein/aus`
+        elements[5].innerHTML = `🔊 - Lautsprecher ein/aus`
+        elements[6].innerHTML = `⏰ - Aktivieren/deaktivieren Sie den Alarm`
+        elements[7].innerHTML = `🚙 - Garagentor öffnen/schließen`
+        elements[8].innerHTML = `🧹 - Ein-/Ausschalten des Staubsaugers`
+    }else if(lang == "ES"){
+        elements[0].innerHTML = `💡 - Color de iluminación`
+        elements[1].innerHTML = `🌡️ - Temperatura ambiente`
+        elements[2].innerHTML = `🪟 - Subir/bajar persiana enrollable`
+        elements[3].innerHTML = `⚡ - Encendido/apagado de la corriente en los enchufes`
+        elements[4].innerHTML = `📺 - Enciende/apaga el televisor`
+        elements[5].innerHTML = `🔊 - Altavoz encendido/apagado`
+        elements[6].innerHTML = `⏰ - Habilitar/deshabilitar la alarma`
+        elements[7].innerHTML = `🚙 - Puerta de garaje abierta/cerrada`
+        elements[8].innerHTML = `🧹 - Encendido/apagado de la aspiradora`
+    }else if(lang == "IT"){
+        elements[0].innerHTML = `💡 - Colore dell'illuminazione`
+        elements[1].innerHTML = `🌡️ - Temperatura ambiente`
+        elements[2].innerHTML = `🪟 - Discesa/salita della tapparella`
+        elements[3].innerHTML = `⚡ - Accensione/spegnimento dell'alimentazione nelle prese adf saef sefse f sefsefsfe`
+        elements[4].innerHTML = `📺 - Accende/spegne il televisore`
+        elements[5].innerHTML = `🔊 - Altoparlante acceso/spento`
+        elements[6].innerHTML = `⏰ - Abilita/disabilita l'allarme`
+        elements[7].innerHTML = `🚙 - Apertura/chiusura della porta del garage`
+        elements[8].innerHTML = `🧹 - Accensione/spegnimento dell'aspirapolvere`
+    }
+}
+
+
+
+
+
+function settingsListener(){
+    const buttons = document.querySelectorAll(".optionButton")
+    buttons.forEach((element,index)=>{
+        element.addEventListener('click', ()=>{
+            controls.innerHTML = ``;
+            menuButtons(200)
+            if(index == 0){
+                languageOption()
+            }else if(index == 1){
+                colorOption()
+            }else if(index == 2){
+                fontOption()
+            }else if(index == 3){
+                legend()
+            }
+        })
+    })
+}
+
+function printSettings(){
+    const option1 = document.createElement("div");
+    const option2 = document.createElement("div");
+    const option3 = document.createElement("div");
+    const option4 = document.createElement("div");
+    option1.classList.add("optionButton");
+    option2.classList.add("optionButton");
+    option3.classList.add("optionButton");
+    option4.classList.add("optionButton");
+    if(lang == "PL"){
+        option1.innerHTML = `Język`;
+        option2.innerHTML = `Kolor`;
+        option3.innerHTML = `Czcionka`;
+        option4.innerHTML = `Legenda`;
+    }else if(lang == "EN"){
+        option1.innerHTML = `Language`;
+        option2.innerHTML = `Color`;
+        option3.innerHTML = `Font`;
+        option4.innerHTML = `Legend`;
+    }else if(lang == "FR"){
+        option1.innerHTML = `Langue`;
+        option2.innerHTML = `Couleur`;
+        option3.innerHTML = `le Caractère`;
+        option4.innerHTML = `Légende`;
+    }else if(lang == "DE"){
+        option1.innerHTML = `Sprache`;
+        option2.innerHTML = `Farbe`;
+        option3.innerHTML = `Schriftart`;
+        option4.innerHTML = `Legende`;
+    }else if(lang == "ES"){
+        option1.innerHTML = `Lengua`;
+        option2.innerHTML = `Color`;
+        option3.innerHTML = `Fuente`;
+        option4.innerHTML = `Leyenda`;
+    }else if(lang == "IT"){
+        option1.innerHTML = `Lingua`;
+        option2.innerHTML = `Colore`;
+        option3.innerHTML = `Font`;
+        option4.innerHTML = `Leggenda`;
+    }
+    controls.append(option1, option2, option3, option4);
+    controls.style.flexDirection = `column`;
+    controls.style.flexWrap = `nowrap`;
+    controls.style.alignItems = `center`;
+}
+
+
+
 // BUTTON FUNCTIONS
 function menuButtons (number){
     if(number == 0 || number == 1){
-        nav.innerHTML = ` <button id="previous">Wstecz</button>
-        <button id="next">Dalej</button>`
+        if(lang == "PL"){
+            nav.innerHTML = ` <button id="previous">Wstecz</button>
+            <button id="next">Dalej</button>`
+        }else if(lang == "EN"){
+            nav.innerHTML = ` <button id="previous">Previous</button>
+            <button id="next">Next</button>`
+        }else if(lang == "FR"){
+            nav.innerHTML = ` <button id="previous">Précédent</button>
+            <button id="next">Suivant</button>`
+        }else if(lang == "DE"){
+            nav.innerHTML = ` <button id="previous">Vorherige</button>
+            <button id="next">Nächste</button>`
+        }else if(lang == "ES"){
+            nav.innerHTML = ` <button id="previous">Anterior</button>
+            <button id="next">Próximo</button>`
+        }else if(lang == "IT"){
+            nav.innerHTML = ` <button id="previous">Precedente</button>
+            <button id="next">Prossimo</button>`
+        }
+
         const previous = document.getElementById("previous");
         const next = document.getElementById("next");
         previous.addEventListener("click", () => 
@@ -681,17 +1092,53 @@ function menuButtons (number){
                     modal()
                     let modalText = document.querySelector(".modalText");
                     if(inputValue == "" && iconNumber == -1){
-                        modalText.innerHTML = "Nie podano nazwy presetu i nie wybrano ikony<br><br><br><br>Proszę wybrać nazwę presetu oraz zaznaczyć odpowiednią ikonę"
+                        if(lang == "PL"){
+                            modalText.innerHTML = "Nie podano nazwy presetu i nie wybrano ikony<br><br><br><br>Proszę wybrać nazwę presetu oraz zaznaczyć odpowiednią ikonę"
+                        }else if(lang == "EN"){
+                            modalText.innerHTML ="No preset name given and no icon selected<br><br><br><br>Please select a preset name and select the appropriate icon"
+                        }else if(lang == "FR"){
+                            modalText.innerHTML ="Aucun nom de préréglage donné et aucune icône sélectionnée<br><br><br><br>Veuillez sélectionner un nom de préréglage et sélectionner l'icône appropriée"
+                        }else if(lang == "DE"){
+                            modalText.innerHTML = "Kein voreingestellter Name angegeben und kein Symbol ausgewählt<br><br><br><br>Bitte wählen Sie einen voreingestellten Namen und das entsprechende Symbol aus."
+                        }else if(lang == "ES"){
+                            modalText.innerHTML = "No se proporcionó un nombre preestablecido y no se seleccionó ningún ícono<br><br><br><br>Seleccione un nombre preestablecido y seleccione el ícono apropiado"
+                        }else if(lang == "IT"){
+                            modalText.innerHTML = "Nessun nome predefinito assegnato e nessuna icona selezionata<br><br><br><br>Selezionare un nome predefinito e selezionare l'icona appropriata"
+                        }
                         menuButtons(100)
                     }
                     else if(inputValue == "" && iconNumber != -1)
                     {
-                        modalText.innerHTML = "Nie podano nazwy presetu<br><br><br><br>Proszę wpisać nazwę presetu w odpowiednim polu"
+                        if(lang == "PL"){
+                            modalText.innerHTML = "Nie podano nazwy presetu<br><br><br><br>Proszę wpisać nazwę presetu w odpowiednim polu"
+                        }else if(lang == "EN"){
+                            modalText.innerHTML = "Preset name not specified<br><br><br><br>Please enter a preset name in the appropriate field"
+                        }else if(lang == "FR"){
+                            modalText.innerHTML = "Nom de préréglage non spécifié<br><br><br><br>Veuillez saisir un nom de préréglage dans le champ approprié"
+                        }else if(lang == "DE"){
+                            modalText.innerHTML = "Voreinstellungsname nicht angegeben<br><br><br><br>Bitte geben Sie einen Voreinstellungsnamen in das entsprechende Feld ein."
+                        }else if(lang == "ES"){
+                            modalText.innerHTML = "Nombre predeterminado no especificado<br><br><br><br>Ingrese un nombre predeterminado en el campo apropiado"
+                        }else if(lang == "IT"){
+                            modalText.innerHTML = "Nome predefinito non specificato<br><br><br><br>Inserire un nome predefinito nel campo appropriato"
+                        }
                         menuButtons(100)
                     }
                     else if(inputValue != "" && iconNumber == -1)
                     {
-                        modalText.innerHTML = "Nie wybrano ikony presetu<br><br><br><br>Proszę zaznaczyć odpowiednią ikonę"
+                        if(lang == "PL"){
+                            modalText.innerHTML = "Nie wybrano ikony presetu<br><br><br><br>Proszę zaznaczyć odpowiednią ikonę"
+                        }else if(lang == "EN"){
+                            modalText.innerHTML = "No preset icon selected<br><br><br><br>Please tick the appropriate icon"
+                        }else if(lang == "FR"){
+                            modalText.innerHTML = "Aucune icône prédéfinie sélectionnée<br><br><br><br>Veuillez cocher l'icône appropriée"
+                        }else if(lang == "DE"){
+                            modalText.innerHTML = "Kein voreingestelltes Symbol ausgewählt<br><br><br><br>Bitte kreuzen Sie das entsprechende Symbol an."
+                        }else if(lang == "ES"){
+                            modalText.innerHTML = "No se ha seleccionado ningún icono predeterminado<br><br><br><br>Marque el icono correspondiente"
+                        }else if(lang == "IT"){
+                            modalText.innerHTML = "Nessuna icona preimpostata selezionata<br><br><br><br>Spuntare l'icona appropriata"
+                        }
                         menuButtons(100)
                     }
                 }
@@ -700,7 +1147,19 @@ function menuButtons (number){
                 {
                     modal();
                     let modalText = document.querySelector(".modalText");
-                    modalText.innerHTML = "Nie wybrano presetu do edycji<br><br><br><br>Proszę zaznaczyć preset"
+                    if(lang == "PL"){
+                        modalText.innerHTML = "Nie wybrano presetu do edycji<br><br><br><br>Proszę zaznaczyć preset"
+                    }else if(lang == "EN"){
+                        modalText.innerHTML = "No preset selected for editing<br><br><br><br>Please select a preset"
+                    }else if(lang == "FR"){
+                        modalText.innerHTML = "Aucun préréglage sélectionné pour l'édition<br><br><br><br>Veuillez sélectionner un préréglage"
+                    }else if(lang == "DE"){
+                        modalText.innerHTML = "Keine Voreinstellung zum Bearbeiten ausgewählt<br><br><br><br>Bitte wählen Sie eine Voreinstellung aus"
+                    }else if(lang == "ES"){
+                        modalText.innerHTML = "No se seleccionó ningún ajuste preestablecido para editar<br><br><br><br>Seleccione un ajuste preestablecido"
+                    }else if(lang == "IT"){
+                        modalText.innerHTML = "Nessuna preimpostazione selezionata per la modifica<br><br><br><br>Seleziona una preimpostazione"
+                    }
                     controls.style.justifyContent = "center";
                     menuButtons(101)
                 }
@@ -727,10 +1186,23 @@ function menuButtons (number){
     }
     else if(number > 1 && number < 5)
     {
-        nav.innerHTML = `<button id="end">Zakończ</button>`
+        if(lang == "PL"){
+            nav.innerHTML = `<button id="end">Zakończ</button>`
+        }else if(lang == "EN"){
+            nav.innerHTML = `<button id="end">Finish</button>`
+        }else if(lang == "FR"){
+            nav.innerHTML = `<button id="end">Finir</button>`
+        }else if(lang == "DE"){
+            nav.innerHTML = `<button id="end">Beenden</button>`
+        }else if(lang == "ES"){
+            nav.innerHTML = `<button id="end">Finalizar</button>`
+        }else if(lang == "IT"){
+            nav.innerHTML = `<button id="end">Fine</button>`
+        }
         const end = document.getElementById("end")
         end.addEventListener("click", () => {
             controls.innerHTML = ""
+            controlsStarter()
             checkMain = false;
             tempAndLight = false
             start();
@@ -738,8 +1210,25 @@ function menuButtons (number){
     }
     else if(number == 10)
     {
-        nav.innerHTML = ` <button id="previous">Wstecz</button>
-        <button id="end">Zakończ</button>`
+        if(lang == "PL"){
+            nav.innerHTML = ` <button id="previous">Wstecz</button>
+            <button id="end">Zakończ</button>`
+        }else if(lang == "EN"){
+            nav.innerHTML = ` <button id="previous">Previous</button>
+            <button id="end">Finish</button>`
+        }else if(lang == "FR"){
+            nav.innerHTML = ` <button id="previous">Précédent</button>
+            <button id="end">Finir</button>`
+        }else if(lang == "DE"){
+            nav.innerHTML = ` <button id="previous">Vorherige</button>
+            <button id="end">Beenden</button>`
+        }else if(lang == "ES"){
+            nav.innerHTML = ` <button id="previous">Anterior</button>
+            <button id="end">Finalizar</button>`
+        }else if(lang == "IT"){
+            nav.innerHTML = ` <button id="previous">Precedente</button>
+            <button id="end">Fine</button>`
+        }
         const previous = document.getElementById("previous")
         const end = document.getElementById("end")
         previous.addEventListener("click", () => 
@@ -767,7 +1256,7 @@ function menuButtons (number){
                 if(i>21)
                 properArr[4].push(tempArr[i])        
             }
-            presets.push({code:`${svgArray[iconNumber]} <p class="preset-text">${presetNamesPL[presetNamesPL.length-1]}</p>`, states:properArr})
+            presets.push({svg: svgArray[iconNumber], text: `<p class="preset-text">${presetNamesPL[presetNamesPL.length-1]}</p>`, states:properArr})
             controls.innerHTML = ""
             iconNumber = -1;
             start();
@@ -775,8 +1264,25 @@ function menuButtons (number){
     }
     else if(number == 20)
     {
-        nav.innerHTML = ` <button id="previous">Wstecz</button>
-        <button id="end">Zakończ</button>`
+        if(lang == "PL"){
+            nav.innerHTML = ` <button id="previous">Wstecz</button>
+            <button id="end">Zakończ</button>`
+        }else if(lang == "EN"){
+            nav.innerHTML = ` <button id="previous">Previous</button>
+            <button id="end">Finish</button>`
+        }else if(lang == "FR"){
+            nav.innerHTML = ` <button id="previous">Précédent</button>
+            <button id="end">Finir</button>`
+        }else if(lang == "DE"){
+            nav.innerHTML = ` <button id="previous">Vorherige</button>
+            <button id="end">Beenden</button>`
+        }else if(lang == "ES"){
+            nav.innerHTML = ` <button id="previous">Anterior</button>
+            <button id="end">Finalizar</button>`
+        }else if(lang == "IT"){
+            nav.innerHTML = ` <button id="previous">Precedente</button>
+            <button id="end">Fine</button>`
+        }
         const previous = document.getElementById("previous")
         const end = document.getElementById("end")
         previous.addEventListener("click", () => 
@@ -809,7 +1315,19 @@ function menuButtons (number){
     }
     else if(number == 100)
     {
-        nav.innerHTML = ` <button id="previous">Wstecz</button>`
+        if(lang == "PL"){
+            nav.innerHTML = ` <button id="previous">Wstecz</button>`
+        }else if(lang == "EN"){
+            nav.innerHTML = ` <button id="previous">Previous</button>`
+        }else if(lang == "FR"){
+            nav.innerHTML = ` <button id="previous">Précédent</button>`
+        }else if(lang == "DE"){
+            nav.innerHTML = ` <button id="previous">Vorherige</button>`
+        }else if(lang == "ES"){
+            nav.innerHTML = ` <button id="previous">Anterior</button>`
+        }else if(lang == "IT"){
+            nav.innerHTML = ` <button id="previous">Precedente</button>`
+        }
         const previous = document.getElementById("previous");
         previous.addEventListener("click", () => 
         {  
@@ -822,13 +1340,49 @@ function menuButtons (number){
     }
     else if(number == 101)
     {
-        nav.innerHTML = ` <button id="previous">Wstecz</button>`
+        if(lang == "PL"){
+            nav.innerHTML = ` <button id="previous">Wstecz</button>`
+        }else if(lang == "EN"){
+            nav.innerHTML = ` <button id="previous">Previous</button>`
+        }else if(lang == "FR"){
+            nav.innerHTML = ` <button id="previous">Précédent</button>`
+        }else if(lang == "DE"){
+            nav.innerHTML = ` <button id="previous">Vorherige</button>`
+        }else if(lang == "ES"){
+            nav.innerHTML = ` <button id="previous">Anterior</button>`
+        }else if(lang == "IT"){
+            nav.innerHTML = ` <button id="previous">Precedente</button>`
+        }
         const previous = document.getElementById("previous");
         previous.addEventListener("click", () => 
         {  
             controls.innerHTML = ""
             presetToEdit()
             menuButtons(1);
+            checkPreset = false
+        });
+    }
+    else if(number == 200){
+        if(lang == "PL"){
+            nav.innerHTML = ` <button id="previous">Wstecz</button>`
+        }else if(lang == "EN"){
+            nav.innerHTML = ` <button id="previous">Previous</button>`
+        }else if(lang == "FR"){
+            nav.innerHTML = ` <button id="previous">Précédent</button>`
+        }else if(lang == "DE"){
+            nav.innerHTML = ` <button id="previous">Vorherige</button>`
+        }else if(lang == "ES"){
+            nav.innerHTML = ` <button id="previous">Anterior</button>`
+        }else if(lang == "IT"){
+            nav.innerHTML = ` <button id="previous">Precedente</button>`
+        }
+        const previous = document.getElementById("previous");
+        previous.addEventListener("click", () => 
+        {  
+            controls.innerHTML = ""
+            menuButtons(4);
+            printSettings();
+            settingsListener();
             checkPreset = false
         });
     }
@@ -848,7 +1402,23 @@ const showTime = function(){
         month: 'long',
         day: 'numeric'
     }
+
     let place = navigator.language
+
+    if(lang == "PL"){
+        place = 'pl-PL'
+    }else if(lang == "EN"){
+        place = 'en-US'
+    }else if(lang == "FR"){
+        place = 'fr-FR'
+    }else if(lang == "DE"){
+        place = 'de-DE'
+    }else if(lang == "ES"){
+        place = `es-ES`
+    }else if(lang == "IT"){
+        place = `it-IT`
+    }
+
     let rest = new Intl.DateTimeFormat(place, options).format(date);
     
     h = (h < 10) ? "0" + h : h;
@@ -865,3 +1435,6 @@ const showTime = function(){
     clockTime = setInterval(tick, 1000);
     return clockTime;
 }
+
+
+
